@@ -10,12 +10,18 @@ const host = ref(null);
 let view = null;
 const { theme } = useTheme();
 const { push } = useToasts();
-const formatted = computed(() => formatJava(props.code));
+const viewport = ref(typeof window === 'undefined' ? 1024 : window.innerWidth);
+const maxWidth = computed(() => (viewport.value <= 560 ? 38 : viewport.value <= 900 ? 56 : 72));
+const formatted = computed(() => formatJava(props.code, maxWidth.value));
+function onResize() { viewport.value = window.innerWidth; }
 
-onMounted(() => { if (host.value) view = createReadOnly({ parent: host.value, doc: formatted.value, theme: theme.value }); });
+onMounted(() => {
+  window.addEventListener('resize', onResize);
+  if (host.value) view = createReadOnly({ parent: host.value, doc: formatted.value, theme: theme.value });
+});
 watch(formatted, (c) => { if (view) setDoc(view, c); });
 watch(theme, (t) => { if (view) setTheme(view, t); });
-onBeforeUnmount(() => { if (view) destroy(view); });
+onBeforeUnmount(() => { window.removeEventListener('resize', onResize); if (view) destroy(view); });
 
 function copy() { navigator.clipboard.writeText(formatted.value).then(() => push('Copied to clipboard', 'ok'), () => push('Copy failed', 'bad')); }
 </script>
