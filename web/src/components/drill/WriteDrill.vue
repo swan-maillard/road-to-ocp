@@ -24,7 +24,7 @@ const code = ref('');
 const tests = ref(null);
 const compiled = ref(true);
 const stderr = ref('');
-const revealed = ref(false);
+const ran = ref(false);
 const busy = ref(false);
 const hintsShown = ref(0);
 const unknown = ref(false);
@@ -33,14 +33,13 @@ const grade = ref(null);
 
 function stored() { return (state.tasks[props.drill.id] && state.tasks[props.drill.id].code) || props.drill.starter; }
 function reset() {
-  code.value = stored(); tests.value = null; compiled.value = true; stderr.value = ''; revealed.value = false; busy.value = false; hintsShown.value = 0; unknown.value = false; graded.value = false; grade.value = null;
+  code.value = stored(); tests.value = null; compiled.value = true; stderr.value = ''; ran.value = false; busy.value = false; hintsShown.value = 0; unknown.value = false; graded.value = false; grade.value = null;
   if (editor.value) editor.value.set(code.value);
 }
 watch(() => props.drill.id, reset, { immediate: true, flush: 'post' });
 
 function onChange(t) { code.value = t; state.tasks[props.drill.id] = { code: t }; save(); }
 function resetCode() { state.tasks[props.drill.id] = { code: props.drill.starter }; save(); reset(); push('Reset to starter.', 'ok'); }
-function showSolution() { if (editor.value) editor.value.set(props.drill.solution); push('Solution loaded — study it, then Reset.', 'warn'); }
 
 const hintList = computed(() => {
   const pair = hintsFor(props.drill.trap) || [];
@@ -56,9 +55,12 @@ const expectedCount = computed(() => (props.drill.expected || []).length);
 const box = computed(() => { const r = state.items[props.drill.id]; return r && r.seen ? r.box : null; });
 const passed = computed(() => (tests.value || []).filter((t) => t.ok).length);
 const allOk = computed(() => compiled.value && expectedCount.value > 0 && passed.value === expectedCount.value);
+// Finished when the hidden tests all pass, or the learner gave up. Only then is
+// the solution shown and grading unlocked; until then retries are unlimited.
+const done = computed(() => allOk.value || unknown.value);
 
 async function runTests() {
-  if (busy.value) return;
+  if (busy.value || done.value) return;
   busy.value = true;
   const source = props.drill.harness ? (code.value + '\n\n' + props.drill.harness) : code.value;
   try {
@@ -70,14 +72,14 @@ async function runTests() {
       const lines = res.stdout.replace(/\r\n/g, '\n').replace(/\n$/, '').split('\n');
       tests.value = (props.drill.expected || []).map((exp, i) => ({ exp, got: lines[i] != null ? lines[i] : '(no output)', ok: lines[i] === exp }));
     }
-    revealed.value = true;
+    ran.value = true;
   } finally { busy.value = false; }
   push(allOk.value ? 'All hidden tests passed' : (passed.value + '/' + expectedCount.value + ' passed'), allOk.value ? 'ok' : 'warn');
 }
 function dontKnow() {
-  if (busy.value) return;
-  revealed.value = true; unknown.value = true; tests.value = []; compiled.value = true; stderr.value = '';
-  push('Marked as not known.', 'warn');
+  if (busy.value || done.value) return;
+  ran.value = true; unknown.value = true; tests.value = []; compiled.value = true; stderr.value = '';
+  push('Marked as not known — solution shown.', 'warn');
 }
 function suggestedGrade() {
   if (unknown.value) return 'unknown';
@@ -108,16 +110,15 @@ defineExpose({ run: runTests });
     <Hints :list="hintList" :shown="hintsShown" />
 
     <div class="action-bar">
-      <button class="btn primary" :disabled="busy || revealed" @click="runTests">Run hidden tests</button>
+      <button class="btn primary" :disabled="busy || done" @click="runTests">Run hidden tests</button>
       <div class="spacer"></div>
-      <button class="btn ghost" :disabled="revealed" @click="resetCode">Reset</button>
-      <button class="btn ghost" :disabled="revealed" @click="showSolution">Show solution</button>
-      <button class="btn ghost" :disabled="revealed || hintsShown >= hintList.length" @click="nextHint">Hint</button>
-      <button class="btn ghost" :disabled="revealed || busy" @click="dontKnow">I don't know</button>
+      <button class="btn ghost" :disabled="busy || done" @click="resetCode">Reset</button>
+      <button class="btn ghost" :disabled="done || hintsShown >= hintList.length" @click="nextHint">Hint</button>
+      <button class="btn ghost" :disabled="busy || done" @click="dontKnow">I don't know</button>
     </div>
     <div v-if="busy" class="spin" style="margin-top:12px">Compiling and running hidden tests…</div>
 
-    <div v-if="revealed" class="reveal-anim">
+    <div v-if="ran" class="reveal-anim">
       <div v-if="unknown" class="verdict bad">Marked as not known</div>
       <template v-else-if="!compiled">
         <div class="verdict bad">Compile error</div>
@@ -131,9 +132,14 @@ defineExpose({ run: runTests });
           <span class="exp">got {{ t.got }}</span>
         </div>
       </template>
-      <TeachBack v-if="!OFFLINE" :drill="drill" />
-      <GradeInput :suggested="suggestedGrade()" :chosen="grade" :graded="graded" :current-box="box || 0" @grade="onGrade" />
-      <AiPanel :drill="drill" :correct="allOk" :mine="passed + '/' + expectedCount" :actual="(drill.expected || []).join(', ')" />
+      <div v-if="!done" class="muted" style="margin-top:6px">Fix the code and run again — you can retry as many times as you like.</div>
+      <details v-if="done" open style="margin-top:10px">
+        <summary class="muted">Solution</summary>
+        <pre class="code">{{ drill.solution }}</pre>
+      </details>
+      <TeachBack v-if="done && !OFFLINE" :drill="drill" />
+      <GradeInput v-if="done" :suggested="suggestedGrade()" :chosen="grade" :graded="graded" :current-box="box || 0" @grade="onGrade" />
+      <AiPanel v-if="ran" :drill="drill" :correct="allOk" :mine="passed + '/' + expectedCount" :actual="(drill.expected || []).join(', ')" />
     </div>
   </div>
 </template>
