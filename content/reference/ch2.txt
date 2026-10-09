@@ -1,0 +1,31 @@
+Chapter 2 Handling Text using String and StringBuilder
+Exam Objectives
+StringText blocksStringBuilder
+2.1 String ☝
+Creating strings:
+1. Using constructors: Important constructors - String(), String(String str), String(StringBuilder sb),String(byte[] bytes), String(char[] value).2. Using string literals: Content of the string to be created must be specified on the same line. E.g. "Double quote \",Tab \t, New line,\nEnd".3. Through concatenation using + as well as += operator: E.g. "hello" + "world". If any one of the operands of the +operator is a string, then the other non-string operand is converted to string. E.g. "hello"+1+2 will create "hello12".
+String Methods:
+Purpose Methodsinspect equals, length, charAt, isEmpty, isBlank, startsWith, endsWith, compareTo, equals, equalsIgnoreCase search contains, indexOf, lastIndexOf, matchesextract substring, subsequence, lines, splitmodify replace, replaceAll, transform, trim, strip, indent, stripIndent, translateEscapes, toLowerCase, toUpperCase, concat
+Important Points:
+1. Strings are immutable and there is no method in String class that can change a string object.2. Strings whose values can be determined at compile time in a special area of the heap space, called string pool.3. String interning - Multiple compile time constant strings point to the same String object.4. Indexing starts with 0. E.g. "12345".charAt(1) returns '2'.5. A standard logic that methods dealing with the starting index and the ending index follow is that the starting index is alwaysinclusive while the ending index is always exclusive. E.g. "123456".substring(1, 3) returns "23". Observe that thecharacter '2' at starting index 1 is included but the character '4' at ending index 3 is not included in the result.6. equals and compareTo methods check the contents of the string objects. == operator is not preferred to compare strings butcan be used on interned strings. E.g. s1 = "hello"; s2 = new String("hello"); s1==s2 is false but s1 ==s2.intern() is true.
+2.2 Text blocks ☝
+Text blocks allows regular textual data to be written in code by writing it between """ and """.Text blocks can be used wherever you can use single line strings, including while initializing arrays. E.g. String sa[] = {"""hello""", "hello" };
+Delimiters:
+The starting delimiter is """ followed by any number of white spaces followed by the ASCII LF character (i.e. the new linecharacter, \u000A, which is nothing but an int value of 10).The ending delimiter is """.The starting and ending delimiters are different.
+Incidental and Essential whitespaces:
+Common whitespace used to indent the text block is ignored.All trailing whitespace is removed and each line is terminated with a single ASCII LF character (the new line character\u000A) immediately after the last non-whitespace character.The rest of the white space is essential whitespace and is not removed.Escape characters such as \t are not considered whitespaces and are not removed while translation even if they appear at thebeginning or at the end of a line.
+E.g.
+""" This text \t spans two lines. """
+The above text block will be translated to: "This text \t\nspans two lines." 
+The following table illustrates various important points of text blocks using examples. The output column shows the output whenstr is printed. [| is added only to show the start and end of the string. CE means Compilation Error.] Code Output CommentsString str =""" hi """; CE New line after the opening """ is required to mark the beginning of a text block.
+String str ="""hi"; CE A text block must be closed with """.
+String str ="""""""""; CE Since """ is a delimiter, if you want to have """ as a part of the resulting string, you have to escapeat least one of the " characters. You can write it as "\"" or ""\".
+String str ="""\"" \""" """;
+|"" """|Both \" and " are translated to ". \""" is translated to """. Trailing spaces are ignored.
+String str ="""a \b"""; |a b|A trailing \ prevents insertion of the trailing new line character.
+String str ="""a\   """; |a| The spaces on the last line are trailing white spaces and are, therefore, ignored.
+Example:
+String s1 = """ hello"""; String s2 = """ hello """; 
+s1.equals(s2) is false because s1 is just "hello" but s2 has an extra \n at the end.
+2.3 StringBuilder ☝
+1. java.lang.StringBuilder is the mutable sibling of java.lang.String. Both the classes directly extend Objectand implement CharSequence. Both are final.2. There is no "string pool" or "interning" associated with StringBuilder objects. They can be garbage collected if they go out ofscope.3. Constuctors - StringBuilder(), StringBuilder(CharSequence seq), StringBuilder(intcapacity)4. Important methods - append(any type), insert(int offset, any type), delete(int start, intend), substring(int start), substring(int start, int end), indexOf(String str),indexOf(String str, int fromIndex).The delete method affects the contents of the StringBuilder while the substring methods do not.5. StringBuilder's append method returns the reference to the same StringBuilder object, which makes it easy to chainmultiple calls in the same statement. E.g. sb.append("hello").append("").append("world").append("!") updates sb to contain "hello world!".6. This class is not thread-safe.

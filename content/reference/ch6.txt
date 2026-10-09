@@ -1,0 +1,97 @@
+Chapter 6 Working with Arrays and Collections
+Exam Objectives
+Create arrays, List, Set, Map and Deque collections, and add, remove, update, retrieve and sort their elements.
+6.1 Arrays ☝
+1. Array indexing starts with 0. The first element is at index 0.2. Once created, an array's length cannot be changed.3. Accessing an element beyond the size on an array will throw a java.lang.ArrayIndexOutOfBoundsException atrun time.4. It is possible to create an array of length 0. E.g. new int[0];5. Arrays are objects of specific classes. E.g. An array of ints is an object of class [I and an array of booleans is an object ofclass [Z.6. All array objects have toString, equals, and hashCode methods.7. Arrays are covariant. So, this is valid: Number[] na = { 1, 2, 3 }; na[0] = 1.2f;8. Arrays are reified. So, this will compile fine but will throw an java.lang.ArrayStoreException at runtime:
+Integer[] ia = {1, 2, 3 }; Number[] na = ia; //OK, assigning array of Integers to a variable of type Number[] na[0] = 1.0; //ArrayStoreException at run time
+9. Multidimensional arrays are actually array of arrays. Different dimensions can have different sizes and each element of amultidimensional array can store array of different lengths (i.e. they are jagged). They are not like matrices.
+Array declarationsArrays can be multi-dimensional and there will be one set of opening and closing brackets for each dimension.
+int i; //i is an int int[] ia1, ia2; //ia1 and ia2 are one dimensional arrays of ints int[][] iaa; //iaa is a two dimensional array of ints and so on int i, ia[]; //i is an int but ia is a one dimensional array of int values int[] ia, iaa[]; //ia is a one dimensional array of ints but iaa is a two dimensional a Object[] obja, objaa[]; //obja is a one dimensional array of Objects but objaa is a two String[] strA; //strA is a one dimensional array of Strings
+An array declaration can never include the size of the array. Thus, the following are declarations will not compile:
+int[2] invalid1; int[3][] invalid2; int[][4] invalid3; 
+Creating arrays using array creation expressions
+You use the new keyword to create an array object. For example,
+int[] ia = new int[10]; //an array of ints of size 10 boolean[] ba = new boolean[3]; //an array of booleans of size 3 String[] stra = new String[5]; //an array of Strings of size 5 MyClass[] myca = new MyClass[5]; //an array of MyClass of size 5
+int[] invalid = new int[];//missing size. will not compile.
+Creating arrays using array initializers
+int[] ia = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9 }; //an array of ints of size 10 boolean[] ba = {true, false, false}; //an array of booleans of size 3 String[] str = {"a", "b", "c", "d", "e"}; //an array of Strings of size 5 MyClass[] myca = { new MyClass(), new MyClass(), new MyClass(), new MyClass(), new MyCla
+Array initializers can also be mixed with array creation expressions. For example,int[] ia = new int[]{ 1, 2, 3, 4, 5 };Java figures out the size of the array by counting the number of elements that are specified in the initialization list. In fact, it isprohibited to specify the size if you are specifying individual elements. Therefore, the following is invalid:
+int[] ia = new int[2]{ 1, 2 };//will not compile.
+java.utils.Arrays classIt has various methods for manipulating arrays (such as sorting and searching). This class also contains a static method asList()that allows arrays to be viewed as lists.
+Important methods: 
+1. Static method asList(), which creates a List view of the given array. The returned list is backed by the array, meaning if youchange the contents of the array, the changes will be reflected in the list as well.2. String method toString(), which returns a string containing string representations of the array elements.3. Several overloaded binarySearch methods. E.g. static int binarySearch(byte[] a, byte key)4. Several overloaded compare methods that compare two arrays lexicographically. E.g. static intcompare(boolean[] a, boolean[] b)5. Several overloaded mismatch methods. E.g. static int mismatch(byte[] a, byte[] b) - Finds and returns theindex of the first mismatch between two byte arrays, otherwise return -1 if no mismatch is found.6. Several overloaded sort and parallelSort methods. They sort the given array as per their natural order (or based on the givencomparator). E.g.
+String[] sa = {"6", "-1", "-3", "8", }; Arrays.sort(sa); System.out.println(Arrays.asList(sa));//[-1, -3, 6, 8] Arrays.sort(sa, (a, b)->Integer.valueOf(a).compareTo(Integer.valueOf(b))); System.out.println(Arrays.toString(sa));//[-3, -1, 6, 8]
+Observe that in string comparison -1 is smaller than -3 but in integral comparison -3 is smaller than -1.7. Several overloaded stream methods. E.g. static DoubleStream stream(double[] array) - Returns asequential DoubleStream with the specified array as its source.
+6.2 Collections ☝
+1. Collections library is in java.util package.2. There are two root interfaces - Iterable and Map. 
+Collections Framework Interfaces Summary
+Interface Features Notable methods Usage Notes
+Collection extendsIterable
+1. Silent on order,uniqueness, andnullability of itselements2. No directimplementingclass
+Single element operations: add, removeBulk operations: addAll, removeAll,removeIf, retainAll, clearInspection operations: size, contains,containsAll, isEmpty
+Commonly used as aparameter type or areturn type of a method.
+SequencedCollectionextends Collection
+1. Well definedencounter order2. Silent onuniqueness andnullability of itselements
+Operations to access/mutate first and lastelements: addFirst, addLast,removeFirst, removeLast, getFirst,getLast Provides reverse view: reversed
+Added in Java 21 torepresent orderedcollections
+List extendsSequencedCollection
+1. Ordered2. Duplicate andnull values areusually allowedbut depends onimplementation
+add, remove, and set methods with int index asthe first argument, subListStatic factory methods of and copyOf to createunmodifiable Lists
+Used when precisecontrol over where inthe list each element isinserted is required.
+Queue extendsCollection
+1. Ordered2. Duplicates usuallyallowed3. Nulls are usuallynot allowed
+offer, poll, peek
+Used when rule basedordering such as FIFO,LIFO, or priority isneeded.
+Deque extends Queue andSequencedCollection
+1. Ordered2. Duplicates usuallyallowed3. Nulls are usuallynot allowed
+offerFirst, offerLast, pollFirst,pollLast, peekFirst, peekLast
+Used when elementinsertion and removalat both ends isrequired.
+Interface Features Notable methods Usage Notes
+Set extends Collection
+1. Silent on order ofelements2. No duplicates3. One null valuemay be alloweddepending on theimplementation
+Static Factory methods named of and copyOf tocreate unmodifiable Sets
+Used when duplicatesare to be avoided andorder is not important.
+Map does not extendCollection
+1. Stores key-valuepairs2. No duplicate keys3. Silent on nullkey and nullvalues4. Silent on order ofelements
+get, getOrDefault, put, putAll,putIfAbsent, remove, keySet, entrySet,values, replace, containsKey, forEachStatic Factory methods named of, ofEntries,and copyOf to create unmodifiable Maps
+Used when key valuepairs are to be stored
+SequencedMap extendsMap
+1. Well definedencounter order ofentries2. supportsoperations at bothends3. reversible
+firstEntry, lastEntry,pollFirstEntry, pollLastEntry,putFirst, putLast, reversed,sequencedEntrySet, sequencedKeySet,sequencedValues
+Used when key valuepairs need to beretrieved in a definedorder
+Collections Framework Implementation Classes Summary
+Class Features Usage Notes
+ArrayList implements List 1. Ordered based on index2. Allows duplicates and null values3. Modifiable
+1. Backed by an array2. Fast access but slow insertion3. Constructors: ArrayList(),ArrayList(int initialCapacity),ArrayList(Collection c)
+LinkedList implements Listand Deque
+1. Ordered based on index2. Allows duplicates and nulls3. Modifiable
+1. Backed by a doubly-linked list2. Fast insertion but slow access3. Nulls are allowed but advised not to add nullsbecause Queue's poll() method returnsnull to indicate empty queue4. Constructors: LinkedList(),LinkedList(Collection c)
+Lists returned by List's of andcopyOf methods
+1. Unmodifiable2. No nulls. NPE if input containsnull.3. Independent from the input array
+Example: List<String> ls =List.of("a", "b");
+Class Features Usage Notes
+List returned byArrays.asList method
+1. Unmodifiable2. null and duplicate values areallowed3. Backed by the underlying array
+Example: List<Integer> li =Arrays.asList(new Integer[]{1,null});
+ArrayDeque implements Deque 1. Ordered based on insertion order2. Allows duplicates3. No nulls
+1. Backed by an array2. Adding null throws NPE.3. Supports FIFO as well as LIFO4. Constructors: ArrayDeque(),ArrayDeque(int numElements),ArrayDeque(Collection c)
+HashSet implements Set 1. Unordered2. Duplicates ignored3. Allows null
+1. Based on a hash table.2. Uses equals and hashCode method tocheck for duplicates while adding3. Constructors: HashSet(), HashSet(intinitialCapacity),HashSet(Collection c),HashSet(int initialCapacity,float loadFactor)
+TreeSet implementsSequencedSet
+1. Ordered2. Duplicates ignored3. No nulls4. Although it implementsSequencedCollection, itthrowsUnsupportedException frommethods such asaddFirst/addLast.
+1. Based on a TreeMap.2. Use Comparable or Comparator to checkfor duplicates while adding3. Constructors: TreeSet(),TreeSet(Comparator c),TreeSet(Collection c),TreeSet(SortedSet s)
+Sets returned by Set's of andcopyOf methods
+1. Unmodifiable2. of throws IAE if input containsduplicates but copyOf silentlyignores duplicates.3. No null. NPE if input containsnull.
+Example: Set<String> ls = Set.of("a","b");
+HashMap implements Map 1. Unordered2. Allows null as a key and also as avalue
+1. Based on a hash map2. Constructors: HashMap(), HashMap(intinitialCapacity), HashMap(intinitialCapacity, floatloadFactor), HashMap(Map m)
+TreeMap implementsSortedMap(Not too important for the exam.)
+1. Ordered2. Sorted3. null value is allowed but not key
+1. Based on Red-Black tree2. Constructors: TreeMap(),TreeMap(Comparator c),TreeMap(Map m),TreeMap(SortedMap m)3. Has many additional methods due to the factthat it implements SortedMap
+Class Features Usage Notes
+Maps returned by Map's of,ofEntries, and copyOfmethods
+1. Unmodifiable
+2. Unordered3. null key or value not allowed
+Example: Map<String, String> m =Map.of("key1", "value1");
+Exceptions thrown by collection methods
+1. UnsupportedOperationException: If the operation is not supported by this collection. For example, trying to add anelement in a list created using the List.of method will cause an UnsupportedOperationException to be thrown atrun time.2. NullPointerException: If the specified element is null and this collection does not permit null elements.3. IllegalArgumentException: If some property of the element prevents it from being added to this collection.4. ClassCastException: If the class of the specified element prevents it from being added to this collection5. IllegalStateException: If the element cannot be added or removed at this time due to insertion/deletion restrictions.

@@ -1,0 +1,33 @@
+{
+  "name": "ocp-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "OCP Java 25 (1Z0-831) predict-run-explain practice trainer",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node scripts/dev.mjs",
+    "build": "vite build",
+    "build:offline": "node scripts/build-offline.mjs",
+    "preview:offline": "vite preview --config vite.offline.config.js",
+    "verify": "node scripts/verify.mjs"
+  },
+  "devDependencies": {
+    "@codemirror/autocomplete": "^6.20.3",
+    "@codemirror/commands": "^6.11.1",
+    "@codemirror/lang-java": "^6.0.2",
+    "@codemirror/language": "^6.13.1",
+    "@codemirror/search": "^6.7.2",
+    "@codemirror/state": "^6.7.6",
+    "@codemirror/theme-one-dark": "^6.1.3",
+    "@codemirror/view": "^6.43.14",
+    "@vitejs/plugin-vue": "^6.0.9",
+    "esbuild": "^0.28.2",
+    "vite": "^8.3.4"
+  },
+  "dependencies": {
+    "dompurify": "^3.4.16",
+    "marked": "^18.1.0",
+    "vue": "^3.5.43"
+  }
+}

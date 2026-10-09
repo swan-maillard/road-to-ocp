@@ -1,0 +1,62 @@
+[
+  {
+    "chapter": 1,
+    "title": "Operators, Casting, Expressions, Wrapper types,Math API",
+    "chars": 6977
+  },
+  {
+    "chapter": 2,
+    "title": "Handling Text using String and StringBuilder",
+    "chars": 5256
+  },
+  {
+    "chapter": 3,
+    "title": "Controlling Program Flow",
+    "chars": 11947
+  },
+  {
+    "chapter": 4,
+    "title": "Using Object-Oriented Concepts in Java",
+    "chars": 29246
+  },
+  {
+    "chapter": 5,
+    "title": "Handling Exceptions",
+    "chars": 3753
+  },
+  {
+    "chapter": 6,
+    "title": "Working with Arrays and Collections",
+    "chars": 11080
+  },
+  {
+    "chapter": 7,
+    "title": "Using Java I/O API",
+    "chars": 18502
+  },
+  {
+    "chapter": 8,
+    "title": "Working with Streams and Lambda expressions",
+    "chars": 56590
+  },
+  {
+    "chapter": 9,
+    "title": "Managing Concurrent Code Execution",
+    "chars": 65114
+  },
+  {
+    "chapter": 10,
+    "title": "Handling Date and Time",
+    "chars": 54093
+  },
+  {
+    "chapter": 11,
+    "title": "Packaging and Deploying Java Code/Modules",
+    "chars": 72281
+  },
+  {
+    "chapter": 12,
+    "title": "Implementing Localization",
+    "chars": 22320
+  }
+]

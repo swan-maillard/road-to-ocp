@@ -1,0 +1,11 @@
+node_modules/
+.env
+*.log
+.DS_Store
+.verify-cache.json
+data/
+
+# offline (GitHub Pages) build
+dist-offline/
+web/public/offline-content.json
+public/offline-content.json

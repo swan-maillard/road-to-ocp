@@ -1,0 +1,73 @@
+Chapter 3 Controlling Program Flow
+Exam Objectives
+Create program flow control constructs including -
+if/elseswitch statements and expressionsloopsbreak and continue statements
+3.1 if/else and ternary ☝
+An if/else statement can have a single statement or multiple statements. E.g.
+if(condition) single statement; if(condition){ multiple statements } if(condition) single statement; else single statement; if(condition){ block of statements }else { multiple statements } 
+if(condition) else statement or block; //not valid if(condition){ } else statement or block; // valid condition must be a boolean expression, such as i==2, methodThatReturnsABoolean(), and booleanVar.
+Ternary operator :?
+1. condition? operand1 : operand 22. Works alomost like if/else3. short circuiting4. Has lowest prcedence except assignment operators, and lambda operators.
+Sample usage of :? 
+int a = 10, x=0, y=0, z=0; String s = "hello"; boolean flag = true; x = flag ? a>10 ? z+1 : s.length()<3 ? a>20? z+2 : z+3 : z+4 : z+5; y = flag ? a<=10 ? s.length()<3 ? a>20? z+1 : z+2 : z+3 : z+4 : z+5; z = s=="hello" ? (!flag ? a==10?99:100:200):(a<10?10:20); System.out.println(x+" "+y+" "+z); //prints 4 , 3, 200
+Group the expressions like this:
+x = flag ? ( a>10 ? z+1 : ( s.length()<3 ? (a>20 ? z+2 : z+3) : z+4 ) ) : z+5; y = flag ? ( a<=10 ? (s.length()<3 ? (a>20? z+1 : z+2) : z+3) : z+4 ) : z+5; z = s=="hello" ? (!flag ? a==10?99:100:200):(a<10?10:20); 
+3.2 switch statements and expressions ☝
+1. A switch can be used to create a statement or an expression. A statement does not have a return value while an expression does.2. Java 22+ allows unnamed variables to be used in switch patterns. E.g.: switch(obj){ case String _ -> println("str"); default ->println("unk"); }3. Both a switch statement and a switch expression can be written using the old ( uses : ) as well as the new syntax (uses -> ).4. Java 21+ allows the switch expression type to be anything except long, float, double, or boolean. Thus, it can bebyte, short, char, int and their wrapper types, String, enums, and any object reference (including a reference towrapper types Long, Float, Double, and Boolean).5. Java 21+ allows null as a case constant.6. switch statements and expressions that use the new syntax do not have fall through. break is allowed only when a block ofstatements is associated with a case but it is redundant, otherwise it is prohibited in the new syntax.7. When a switch selector expression uses a reference type, it becomes a switch with pattern matching. Such switch blocks canuse case with guards.8. Only switch statements without pattern matching written using old as well as new syntax are allowed to be non-exhaustive.Switch expressions and switch statements with pattern matching must be exhaustive.
+Switch Statement (without pattern matching) Rules Summary
+Old Syntax ( : ) New Syntax( -> )Allows zero or more individual statements or zero or more codeblocks. Examples (all valid):
+case 0: case 1: stmt1; stmt2; case 2: { <code block1>} { <code block 2> } 
+Allows either exactly one statement or exactly one codeExamples (all invalid):
+case 0 -> //invalid, empty case case 2 -> stmt1; stmt2; //invalid, mocase 4 -> { } { }//invalid, more than
+Selectorexpressiontype
+Limited to: byte, short, int, char, and theirwrappers, String, and enum.Not Allowed: boolean, long, float, and double.
+Limited to: byte, short, int, char, and theiNot Allowed: boolean, long, float, and dou
+Case labelconstanttype Must be compatible with selector expression type Must be compatible with selector expression type
+case label Allows a single case constant. Allows multiple case constants separated by comma. Ex
+case 1, 2 -> { }
+defaultlabel Not required Not required
+case null Allowed in Java 21+ only if the switch statement is exhaustiveand follows the rule for dominance of case expressions. Allowed in Java 21+ only if the switch statement is exhadominance of case expressions.Order ofswitchlabels No restriction No restriction
+break Needed only to prevent fall through Prohibited when a switch label is associated with a sing
+Allowed within the code block associated with a switchyield Not allowed Not allowedexhaustiveNot necessary Not necessary
+Switch Expression (without pattern matching) Rules Summary
+Old Syntax ( : ) New Syntax( -> )
+Old Syntax ( : ) New Syntax( -> )
+Allows one expression or one code block. Requires yield to cause it to returnvalue.Examples:case 0: yield 1; //valid, returns 1case 3: yield "aa".length(); //valid, returns 2. case2: "a".length(); //syntactically valid, no yieldrequired for non-void method call but falls throughwithout returning a value
+case 1: 1; //invalid, missing yield keyword
+Allows one expression or one codeblock. No yield required forsingle expression but required onlywithin code block.Examples:case 1 -> 1; //valid,returns 1, no yieldrequiredcase 3 ->"a".length();//valid,returns 1, no yieldrequiredcase 4 -> { yield 1;}//valid, yield isrequired in a block
+case 0 -> //invalid,missing expressioncase 2 -> yield 1;//invalid, must notwrite yield
+Selectorexpressiontype
+Limited to: byte, short, int, and char and their wrappers, String,and enumNot Allowed: boolean, float, long, and double
+Limited to: byte, short,int, and char and theirwrappers, String, and enumNot Allowed: boolean,float, long, and doubleCase labelconstanttype Must be compatible with selector expression type. Must be compatible with selectorexpression type.
+case label Allows a single case constant. Allows multiple case constantsseparated by comma. Example: case 1, 2 -> 1;defaultlabel Not required if already exhaustive Not required if already exhaustive
+case null Allowed in Java 21+ but must follow the rule for dominance of case expressions. Allowed in Java 21+ but mustfollow the rule for dominance ofcase expressions.Order ofswitchlabels No restriction No restriction
+break Prohibited Prohibited
+yield Required to return value Required only when returning avalue from a code block. Otherwiseprohibited.exhaustiveNecessary Necessary
+Switch Statements and Expressions with pattern matching Rules Summary (Java 21 Only)
+Old Syntax ( : ) New Syntax( -> )Selectorexpression typeAll reference types are allowed All reference types are allowed
+Type of caseconstants Must be compatible with the type of the selector expression Must be compatible with the type ofthe selector expressionexhaustive Necessary Necessarydefault label Not required if already exhaustive Not required if already exhaustive
+Old Syntax ( : ) New Syntax( -> )
+case null AllowedMay appear anywhere except after default label.
+AllowedMay appear anywhere except afterdefault label.
+Order of switchlabels Must follow the rule for dominance of case expressions.default must be the last label, if present.
+Must follow the rule for dominance ofcase expressions.default must be the last label, ifpresent.Fall throughbehavior Not allowed exception when falling through to case null and default. So,break is required after each switch label. Fall through is not possible. break isprohibited.
+Sample Switch statements
+//basic switch statement with old syntax int x = 100; int y = 0; switch(x % 9){ //case 0+x -> System.out.println("illegal"); //invalid because case expression must b case 2 : y++; //fall through here case 4 : y--; break; case 6, 7 : y+=4; //using multiple case constants default : System.out.println("long"); } //basic switch statement with new syntax switch(x % 9){ case 2 -> y++; //no fall through case 6, 7 -> y+=4; //using multiple case constants default -> System.out.println("long"); } //with pattern matching and case guards using old syntax Long lng = 11L; //L is required because 11 is an int, it cannot be boxed to a Long, 11L switch(lng){ case Long l1 when l1 < 10 : System.out.println("less than 10"); break; //break is req case Long l2 when l2 < 20 : System.out.println("less than 10"); //fall through allowe case null: System.out.println("null"); default : System.out.println("Long"); } 
+Sample switch expressions
+int x = 105; int y = 0; y = switch(x % 9){ case 2 : yield y++; //no fall through, yield is required case 6, 7 : { yield y+=4; } //using multiple case constants default : yield 10; }; //semi colon is required String result = null; result = switch(args[0]){ case "hi" -> "how are you"; //yield is prohibited, no fall through case "hello", "good morning" -> { yield "hi"; //using multiple case constants } //no fall through case null, default -> "how is it going"; }; //semi colon is required here because this is an assignment statement
+Sample usage of switch with pattern matching
+//using the arrow syntax switch(obj){ case Integer _ -> System.out.println("Integer "); //unnamed variable 
+ case Double _ -> System.out.println("Double "+obj); //unnamed variable case String s -> System.out.println("String "+s.length()); default -> System.out.println("Object "+obj); } //using the old colon+break syntax switch(obj){ case Integer i : System.out.println("Integer "+i); break; case Double d : System.out.println("Double "+d);break; default : System.out.println("Object "+obj); } 
+Switch Pattern matching with guards
+switch(obj){ case Integer i when i < 0 -> System.out.println("Negative value!"); case Integer i when i >= 0 -> System.out.println("Positive value!"); default -> System.out.println("Object "+obj); } LocalDate ld = LocalDate.now(); switch(ld){ case LocalDate d1 when ld.isBefore(LocalDate.of(2025, 01, 01)) -> System.out.println("before 1st Jan 2025"); case LocalDate d2 when ld.isAfter(LocalDate.of(2025, 12, 31)) -> System.out.println("After 1st Jan 2026"); case null -> System.out.println("No date"); default -> System.out.println("In 2025"); } 
+Deconstruction of records with Switch Pattern matching
+record Address(String street){ } record Student(int id, String name, Address addr){ } void main(){ Object o = new Student(1, "Bob", new Address("123 Main")); switch(o){ //the following case contains unnamed as well as named variables case Student(int _, String _, Address(String value)) -> System.out.println(value); //prints 123 Main default -> System.out.println("got o"); } } 
+3.3 Loops including break and continue ☝
+1. for, enhanced for/for-each, while, and, do-while2. for and while may not execute any iteration at all but do-while will execute always at least the first iteration
+Sample usage:
+//regular for loop int i = 0; for(;i<10; i++); //empty init section, post-increment for(;i<10; i = i + 2); //increment by two for(;i<10; i = someRef.getValue()) //assignment for(Object obj = new Object(); obj != null; ) { //empty updation section System.out.println(obj); obj = null; } for(int i = 0; i<10; callSomeMethod() ); //method call //enhanced for loop 
+String[] values = { "a", "bb", "ccc" }; Set s = new HashSet(); s.add("a"); s.add("bb"); for(String value : values){ System.out.println(value); //do something with each value } for(Object value : s){ System.out.println(value); //do something with each value } //while loop int i = 4; while(i>0){ i--; } System.out.println(i); //prints 0 //do-while loop int i = 4; do { System.out.println("i is "+i); } while(i-->0); System.out.println(i); //prints -1 
+break and continue
+1. break and continue can be used with and without label2. break/continue affect the loop closest to the break/continue3. break/continue with label affect the loop associated with the given label.4. The label of a labelled break/continue must be associated with an encompassing loop (any kind of loop)
+Sample usage
+LABEL_1 : for(int i = 0; i<10; i++){ System.out.print("i="+i+", "); for(int j = 0; j<4; j++){ System.out.print("j="+j+", "); if(i ==2) continue LABEL_1; } } System.out.println(""); //output is://i=0, j=0, j=1, j=2, j=3, i=1, j=0, j=1, j=2, j=3, i=2, j=0, i=3, j=0, j=1, j=2, j=3, int x = 1; int h = 5; LOOP1 : do{ LOOP2 : for(int y = 1; y < h; y++ ) { if( y == x ) continue; if( x*x + y*y == h*h){ System.out.println("Found "+x+" "+y); break LOOP1; } } x++; }while(x<h); //output is: Found 3 4

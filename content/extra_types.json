@@ -1,0 +1,102 @@
+[
+  {
+    "id": "extra-order-precedence",
+    "chapter": 1,
+    "section": "1.2",
+    "objective": "Evaluate arithmetic and boolean expressions",
+    "kind": "order",
+    "trap": "precedence-associativity",
+    "difficulty": 3,
+    "prompt": "Order these from HIGHEST to LOWEST precedence:",
+    "items": ["assignment (=)", "additive (+)", "cast (())", "multiplicative (*)", "postfix (i++)"],
+    "answer": ["postfix (i++)", "cast (())", "multiplicative (*)", "additive (+)", "assignment (=)"],
+    "explanation": "Precedence high to low: postfix, then unary/cast, then multiplicative, then additive, then ... and assignment is lowest (except lambda).",
+    "ref": "1.2 Operator precedence table",
+    "teachBack": "Which is higher precedence: cast or multiplicative?"
+  },
+  {
+    "id": "extra-order-bundle-lookup",
+    "chapter": 12,
+    "section": "12.3.2",
+    "objective": "Understanding Resource Bundles",
+    "kind": "order",
+    "trap": "bundle-hierarchy",
+    "difficulty": 3,
+    "prompt": "Order the resource bundles the key lookup visits first to last for locale fr_CA (base name helloapp):",
+    "items": ["helloapp", "helloapp_fr", "helloapp_fr_CA"],
+    "answer": ["helloapp_fr_CA", "helloapp_fr", "helloapp"],
+    "explanation": "Lookup starts at the most specific bundle (fr_CA), then its parent (fr), then the base bundle. It never goes to siblings.",
+    "ref": "12.3.2 Bundle hierarchy lookup order",
+    "teachBack": "Why is helloapp_fr checked before helloapp?"
+  },
+  {
+    "id": "extra-trace-loop-sum",
+    "chapter": 3,
+    "section": "3.3",
+    "objective": "Loops including break and continue",
+    "kind": "trace",
+    "trap": "while-loop",
+    "difficulty": 2,
+    "prompt": "Trace the loop. Fill each cell with the value of the variable at that step.",
+    "code": "int sum = 0;\nfor (int i = 0; i < 3; i++) {\n    sum += i;\n}",
+    "columns": ["i", "sum"],
+    "rows": [
+      { "label": "before loop", "cells": ["0", "0"] },
+      { "label": "after i=0 iteration", "cells": ["1", "0"] },
+      { "label": "after i=1 iteration", "cells": ["2", "1"] },
+      { "label": "after i=2 iteration", "cells": ["3", "3"] }
+    ],
+    "explanation": "sum accumulates 0, then +1 = 1, then +2 = 3. i ends at 3 when the condition fails.",
+    "ref": "3.3 for loop execution",
+    "teachBack": "What is the final value of i and why?"
+  },
+  {
+    "id": "extra-trace-switch",
+    "chapter": 3,
+    "section": "3.2",
+    "objective": "switch statements and expressions",
+    "kind": "trace",
+    "trap": "switch-fallthrough",
+    "difficulty": 3,
+    "prompt": "Trace the old-syntax switch. Fill y after each falling-through label.",
+    "code": "int y = 0;\nswitch(2){\n    case 2: y++;\n    case 4: y--; break;\n    case 6: y += 4;\n}",
+    "columns": ["y after each statement"],
+    "rows": [
+      { "label": "after case 2 body (y++)", "cells": ["1"] },
+      { "label": "after case 4 body (y--)", "cells": ["0"] }
+    ],
+    "explanation": "case 2 increments to 1, then falls through into case 4 which decrements to 0 and breaks.",
+    "ref": "3.2 Fall-through",
+    "teachBack": "Why does case 6 never run?"
+  },
+  {
+    "id": "extra-bug-wrappers",
+    "chapter": 1,
+    "section": "1.1",
+    "objective": "Use primitives and wrapper classes",
+    "kind": "bug",
+    "trap": "widen-then-autobox",
+    "difficulty": 3,
+    "prompt": "Click the line that will NOT compile.",
+    "code": "int i = 10;\ndouble d = i;\ndouble e = i;\nDouble D = i;\nSystem.out.println(d);",
+    "answerLine": 4,
+    "explanation": "Line 4 `Double D = i;` requires widening (int->double) then autoboxing (double->Double), which is not allowed.",
+    "ref": "1.1 Widening then autoboxing",
+    "teachBack": "Why does line 3 compile but line 4 not?"
+  },
+  {
+    "id": "extra-bug-arraystore",
+    "chapter": 6,
+    "section": "6.1",
+    "objective": "Arrays",
+    "kind": "bug",
+    "trap": "array-covariance-reified",
+    "difficulty": 3,
+    "prompt": "This compiles. Click the line that throws at runtime.",
+    "code": "Integer[] ia = {1, 2, 3};\nNumber[] na = ia;\nna[0] = 1.0;\nSystem.out.println(na.length);",
+    "answerLine": 3,
+    "explanation": "Arrays are reified: assigning a Double into an array whose runtime component type is Integer throws ArrayStoreException on line 3.",
+    "ref": "6.1 Arrays (reified)",
+    "teachBack": "Which exception is thrown and on which line?"
+  }
+]

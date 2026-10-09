@@ -1,0 +1,372 @@
+[
+  {
+    "id": "ch11-instance-main-field",
+    "chapter": 11,
+    "section": "11.1",
+    "objective": "Compact source files and instance main methods",
+    "kind": "code",
+    "outcome": "OUTPUT",
+    "trap": "instance-main",
+    "difficulty": 2,
+    "prompt": "What is printed?",
+    "code": "int x = 5;\nvoid main(){\n    IO.print(x);\n}",
+    "answer": "5",
+    "explanation": "A launchable instance main method is invoked on an instance of the implicitly declared class, so it can read the instance field x.",
+    "ref": "11.1 Instance main methods",
+    "teachBack": "How does the launcher run an instance (non-static) main method?"
+  },
+  {
+    "id": "ch11-compact-default-import",
+    "chapter": 11,
+    "section": "11.1",
+    "objective": "Compact source files",
+    "kind": "code",
+    "outcome": "OUTPUT",
+    "trap": "compact-default-import",
+    "difficulty": 2,
+    "prompt": "What is printed?",
+    "code": "void main(){\n    IO.print(new ArrayList<String>().size());\n}",
+    "answer": "0",
+    "explanation": "A compact source file implicitly imports the java.base module, so ArrayList (java.util) is available without an import. IO is in java.lang.",
+    "ref": "11.1 Compact source files (default imports)",
+    "teachBack": "What import does every compact source file get automatically?"
+  },
+  {
+    "id": "ch11-module-import-classic",
+    "chapter": 11,
+    "section": "11.1",
+    "objective": "Module import declarations",
+    "kind": "code",
+    "outcome": "OUTPUT",
+    "trap": "module-import",
+    "difficulty": 3,
+    "prompt": "What is printed?",
+    "code": "import module java.base;\npublic class Main {\n    public static void main(String[] args){\n        System.out.print(List.of(\"a\", \"b\").size());\n    }\n}",
+    "answer": "2",
+    "explanation": "import module java.base; replaces on-demand imports for all packages exported by java.base, so List and System are available.",
+    "ref": "11.1 Module import",
+    "teachBack": "What does `import module java.base;` give you?"
+  },
+  {
+    "id": "ch11-concept-valid-module-name",
+    "chapter": 11,
+    "section": "11.2",
+    "objective": "Naming a module",
+    "kind": "concept",
+    "trap": "module-name",
+    "difficulty": 2,
+    "prompt": "Which is a VALID module name?",
+    "options": [
+      { "id": "a", "text": "1x" },
+      { "id": "b", "text": "a-b" },
+      { "id": "c", "text": "a..b" },
+      { "id": "d", "text": "my.module" }
+    ],
+    "answer": "d",
+    "explanation": "Module names follow identifier rules: cannot start with a digit (1x), cannot contain hyphens (a-b) or consecutive dots (a..b). Dots are allowed.",
+    "ref": "11.2 Naming a module",
+    "teachBack": "What characters are forbidden in a module name?"
+  },
+  {
+    "id": "ch11-concept-automatic-name",
+    "chapter": 11,
+    "section": "11.5",
+    "objective": "Automatic and Unnamed Modules",
+    "kind": "concept",
+    "trap": "automatic-module-name",
+    "difficulty": 3,
+    "prompt": "What module name does the automatic module derived from commons-logging-1.3.1.jar get?",
+    "options": [
+      { "id": "a", "text": "commons-logging-1.3.1" },
+      { "id": "b", "text": "commons.logging" },
+      { "id": "c", "text": "commons_logging" },
+      { "id": "d", "text": "commonslogging" }
+    ],
+    "answer": "b",
+    "explanation": "Deriving an automatic module name: hyphens become dots and the trailing version is removed, giving commons.logging.",
+    "ref": "11.5 Automatic module name derivation",
+    "teachBack": "How is an automatic module's name derived from its jar file name?"
+  },
+  {
+    "id": "ch11-concept-exports-opens",
+    "chapter": 11,
+    "section": "11.3",
+    "objective": "exports / opens",
+    "kind": "concept",
+    "trap": "exports-vs-opens",
+    "difficulty": 3,
+    "prompt": "What does the `opens` directive allow that `exports` does not?",
+    "options": [
+      { "id": "a", "text": "compile-time access to public types" },
+      { "id": "b", "text": "run-time reflective access to a package's types" },
+      { "id": "c", "text": "transitive dependency" },
+      { "id": "d", "text": "adding packages to the classpath" }
+    ],
+    "answer": "b",
+    "explanation": "exports grants compile-time access; opens grants run-time access (including for reflection) without compile-time access.",
+    "ref": "11.3 opens vs exports",
+    "teachBack": "When would you use opens instead of exports?"
+  },
+  {
+    "id": "ch11-concept-requires-transitive",
+    "chapter": 11,
+    "section": "11.3",
+    "objective": "Transitive dependencies",
+    "kind": "concept",
+    "trap": "requires-transitive",
+    "difficulty": 3,
+    "prompt": "module hr { requires transitive valueobjects; } — what is the effect on a module that requires hr?",
+    "options": [
+      { "id": "a", "text": "nothing extra" },
+      { "id": "b", "text": "it also reads valueobjects (implied readability)" },
+      { "id": "c", "text": "it must also require valueobjects explicitly" },
+      { "id": "d", "text": "valueobjects is opened for reflection" }
+    ],
+    "answer": "b",
+    "explanation": "requires transitive makes the dependency readable to any module that requires the declaring module (implied readability), removing the need for an extra requires.",
+    "ref": "11.3 requires transitive / implied readability",
+    "teachBack": "What problem does requires transitive solve?"
+  },
+  {
+    "id": "ch11-concept-unnamed-module",
+    "chapter": 11,
+    "section": "11.5",
+    "objective": "Automatic and Unnamed Modules",
+    "kind": "concept",
+    "trap": "unnamed-module",
+    "difficulty": 3,
+    "prompt": "Which statement about the unnamed module is TRUE?",
+    "options": [
+      { "id": "a", "text": "It can be named in a requires clause" },
+      { "id": "b", "text": "It reads all exported packages of modules on the module path and all classes on the classpath" },
+      { "id": "c", "text": "It cannot read java.base" },
+      { "id": "d", "text": "Each classpath jar forms its own unnamed module" }
+    ],
+    "answer": "b",
+    "explanation": "All classpath classes live in one unnamed module. It reads all exported packages of module-path modules plus the classpath, but it cannot be required and is not readable by explicit modules.",
+    "ref": "11.5 Unnamed module",
+    "teachBack": "Why can't an explicit module require the unnamed module?"
+  },
+  {
+    "id": "ch11-concept-automatic-superpowers",
+    "chapter": 11,
+    "section": "11.5",
+    "objective": "Automatic modules",
+    "kind": "concept",
+    "trap": "automatic-superpowers",
+    "difficulty": 3,
+    "prompt": "What two 'superpowers' does an automatic module have?",
+    "options": [
+      { "id": "a", "text": "it exports and opens all its packages, and reads all modules on the path plus the classpath" },
+      { "id": "b", "text": "it can declare requires transitive" },
+      { "id": "c", "text": "it cannot be used by named modules" },
+      { "id": "d", "text": "it must contain a module-info.class" }
+    ],
+    "answer": "a",
+    "explanation": "An automatic module (a plain jar on the module path) exports and opens all packages, and can read all exported packages of all modules plus all classes on the classpath.",
+    "ref": "11.5 Automatic module superpowers",
+    "teachBack": "Why do automatic modules act as a bridge between modular and non-modular code?"
+  },
+  {
+    "id": "ch11-concept-service-provider",
+    "chapter": 11,
+    "section": "11.6",
+    "objective": "Defining and using a service",
+    "kind": "concept",
+    "trap": "service-provider-rules",
+    "difficulty": 3,
+    "prompt": "Which is required of a service provider class that has no `provider()` method?",
+    "options": [
+      { "id": "a", "text": "it must be abstract" },
+      { "id": "b", "text": "it must be public and have a public no-args constructor" },
+      { "id": "c", "text": "it must be an inner class" },
+      { "id": "d", "text": "it must extend Thread" }
+    ],
+    "answer": "b",
+    "explanation": "A provider must be public and not an inner class. Without a public static provider() method, it must expose a public no-args constructor for ServiceLoader to instantiate it.",
+    "ref": "11.6 Service provider requirements",
+    "teachBack": "How does ServiceLoader obtain an instance of a provider?"
+  },
+  {
+    "id": "ch11-concept-service-directives",
+    "chapter": 11,
+    "section": "11.6",
+    "objective": "Defining and using a service",
+    "kind": "concept",
+    "trap": "service-directives",
+    "difficulty": 3,
+    "prompt": "Which pair of directives ties a service to its provider and declares a consumer?",
+    "options": [
+      { "id": "a", "text": "export ... to ... and requires transitive" },
+      { "id": "b", "text": "provides ... with ... and uses ..." },
+      { "id": "c", "text": "opens ... and requires" },
+      { "id": "d", "text": "requires static and exports" }
+    ],
+    "answer": "b",
+    "explanation": "The provider module uses `provides <service> with <provider>;` and the consumer module uses `uses <service>;`, then looks providers up via ServiceLoader.",
+    "ref": "11.6 provides/with and uses",
+    "teachBack": "Which side (provider or consumer) declares provides, and which declares uses?"
+  },
+  {
+    "id": "ch11-concept-migration-topdown",
+    "chapter": 11,
+    "section": "11.9",
+    "objective": "Migration strategies",
+    "kind": "concept",
+    "trap": "migration-topdown",
+    "difficulty": 3,
+    "prompt": "In top-down migration, what happens first?",
+    "options": [
+      { "id": "a", "text": "The leaf dependencies are modularized first" },
+      { "id": "b", "text": "The top-level application jar is modularized first, using its dependencies as automatic modules" },
+      { "id": "c", "text": "Everything is left on the classpath" },
+      { "id": "d", "text": "The unnamed module is removed" }
+    ],
+    "answer": "b",
+    "explanation": "Top-down modularizes the top application first and puts non-modular dependencies on the module path as automatic modules. Bottom-up does the opposite (leaf dependencies first).",
+    "ref": "11.9 Top-down migration",
+    "teachBack": "Why is top-down generally preferred over bottom-up?"
+  },
+  {
+    "id": "ch11-concept-jdeps",
+    "chapter": 11,
+    "section": "11.10",
+    "objective": "Modular JDK and tools",
+    "kind": "concept",
+    "trap": "jdeps",
+    "difficulty": 2,
+    "prompt": "What is the jdeps tool used for?",
+    "options": [
+      { "id": "a", "text": "create a custom JRE image" },
+      { "id": "b", "text": "analyze module/package/class dependencies without executing code" },
+      { "id": "c", "text": "create a jmod archive" },
+      { "id": "d", "text": "run a module" }
+    ],
+    "answer": "b",
+    "explanation": "jdeps reports module, package, and class-level dependencies of a module or jar without running it.",
+    "ref": "11.10 jdeps",
+    "teachBack": "Which tool tells you what a module depends on?"
+  },
+  {
+    "id": "ch11-concept-jmod-jimage",
+    "chapter": 11,
+    "section": "11.10",
+    "objective": "Modular JDK and tools",
+    "kind": "concept",
+    "trap": "jmod-jimage",
+    "difficulty": 3,
+    "prompt": "Which statement is TRUE?",
+    "options": [
+      { "id": "a", "text": "a jmod file can be executed with java --module" },
+      { "id": "b", "text": "a .jimage is a platform-specific customized JRE" },
+      { "id": "c", "text": "jimage creates source code" },
+      { "id": "d", "text": "jmod replaces jar for application deployment" }
+    ],
+    "answer": "b",
+    "explanation": "A jmod cannot be executed (compile/link time only). A .jimage is a customized JRE and is platform-specific (not cross-platform).",
+    "ref": "11.10 jmod and jimage",
+    "teachBack": "Why can a jmod not be executed?"
+  },
+  {
+    "id": "ch11-concept-launchable-main",
+    "chapter": 11,
+    "section": "11.1",
+    "objective": "Launchable main methods",
+    "kind": "concept",
+    "trap": "launchable-main",
+    "difficulty": 3,
+    "prompt": "If a class declares both a String[] main and a no-arg main, which does the launcher choose?",
+    "options": [
+      { "id": "a", "text": "the no-arg main" },
+      { "id": "b", "text": "the String[] main" },
+      { "id": "c", "text": "it is a compile error" },
+      { "id": "d", "text": "both are run" }
+    ],
+    "answer": "b",
+    "explanation": "Per the launchable main protocol, a main with a String[] parameter is chosen in preference to a no-arg main.",
+    "ref": "11.1 Launchable main method protocol",
+    "teachBack": "In what order does the launcher select a main method?"
+  },
+  {
+    "id": "ch11-concept-module-import-java-se",
+    "chapter": 11,
+    "section": "11.1",
+    "objective": "Module import declarations",
+    "kind": "concept",
+    "trap": "module-import",
+    "difficulty": 3,
+    "prompt": "Why can't a class in the unnamed module use `import module java.se;`?",
+    "options": [
+      { "id": "a", "text": "java.se is deprecated" },
+      { "id": "b", "text": "the unnamed module is not allowed to read java.se" },
+      { "id": "c", "text": "java.se does not export any packages" },
+      { "id": "d", "text": "module imports only work in named modules" }
+    ],
+    "answer": "b",
+    "explanation": "java.se is an aggregator module that the unnamed module is not allowed to read (it can read java.base). java.se exports packages of the modules it requires transitively.",
+    "ref": "11.1 Module import / aggregator modules",
+    "teachBack": "What is an aggregator module?"
+  },
+  {
+    "id": "ch11-concept-circular",
+    "chapter": 11,
+    "section": "11.3",
+    "objective": "module dependencies",
+    "kind": "concept",
+    "trap": "circular-modules",
+    "difficulty": 2,
+    "prompt": "What happens if module a requires b and module b requires a?",
+    "options": [
+      { "id": "a", "text": "it compiles normally" },
+      { "id": "b", "text": "it is a compile-time error (circular dependency not allowed)" },
+      { "id": "c", "text": "only a is readable" },
+      { "id": "d", "text": "one is treated as an automatic module" }
+    ],
+    "answer": "b",
+    "explanation": "Java's module system forbids circular dependencies, including indirect ones. (Circular dependencies between classes/packages are allowed though.)",
+    "ref": "11.3 Circular dependencies",
+    "teachBack": "Are circular dependencies allowed between classes? Between modules?"
+  },
+  {
+    "id": "ch11-fill-requires-transitive",
+    "chapter": 11,
+    "section": "11.3",
+    "objective": "Transitive dependencies",
+    "kind": "fill",
+    "trap": "requires-transitive",
+    "difficulty": 2,
+    "prompt": "Complete the directive that exposes a dependency to modules requiring this one:",
+    "code": "module hr { requires ____ valueobjects; }",
+    "options": [
+      { "id": "a", "text": "static" },
+      { "id": "b", "text": "transitive" },
+      { "id": "c", "text": "public" },
+      { "id": "d", "text": "opened" }
+    ],
+    "answer": "b",
+    "explanation": "`requires transitive` grants implied readability: any module that requires hr also reads valueobjects.",
+    "ref": "11.3 requires transitive",
+    "teachBack": "What is implied readability?"
+  },
+  {
+    "id": "ch11-fill-service-provides",
+    "chapter": 11,
+    "section": "11.6",
+    "objective": "Defining and using a service",
+    "kind": "fill",
+    "trap": "service-directives",
+    "difficulty": 2,
+    "prompt": "Complete the provider directive:",
+    "code": "module simpleinterest { provides calculators.InterestCalculator ____ simpleinterest.SimpleInterestCalculator; }",
+    "options": [
+      { "id": "a", "text": "using" },
+      { "id": "b", "text": "with" },
+      { "id": "c", "text": "for" },
+      { "id": "d", "text": "as" }
+    ],
+    "answer": "b",
+    "explanation": "The provider module ties the service to its implementation with `provides <service> with <provider>;`.",
+    "ref": "11.6 provides ... with ...",
+    "teachBack": "Write the full provides directive shape."
+  }
+]

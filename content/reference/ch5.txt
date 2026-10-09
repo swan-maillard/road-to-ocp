@@ -1,0 +1,21 @@
+Chapter 5 Handling Exceptions
+Exam Objectives
+Handle exceptions using try/catch/finally, try-with-resources, and multi-catch blocks, including custom exceptions
+5.1 Handling Exceptions ☝
+1. Basic syntax of a regular try:
+try{ } catch(<exception class name>> e){ } finally{ }
+2. Using multiple catch clauses:
+try{ } catch(<exception class name 1> e){ } catch(<exception class name 2> e){ } finally{ }
+Multiple catch blocks must be ordered from most specific to least specific exception class.3. The catch and finally clauses are optional but a try must have at least one of catch and finally clauses unless it is a try-with-resource statement, in which case, both are optional..4. Using a multi-catch:
+try{ } catch(<exception class name 1 | exception class name 2> e){ } finally{ }
+The declared type of the catch variable is the same as the most specific superclass of the exceptions listed in the multi-catchclause. For example, the type of the variable e in catch(NullPointerException |IllegalArgumentException e) will be RuntimeException. At run time, if an exception is thrown in the tryblock, e will point to whichever exception object was thrown. 
+Any number of classes may be listed in a multi-catch clause but none of them may have an ancestor/successor relationshipbetween them.
+5. Throw an exception using the throws keyword.
+The try-with-resources statement 
+Sample valid usage:
+FileInputStream fis1 = new FileInputStream("test1.txt"); try(fis1;) { } //using a single predefined, preinitialized variable (the semi-colon is otry(FileInputStream fis2 = new FileInputStream("test2.txt"); fis2;){ } //declaring a new try( Connection db = connectionManager.getConnection(); var ss = new ServerSocket(8888); //using a var declaration FileInputStream fis2 = new FileInputStream("test2.txt"); fis1 ){ //multiple declaration statements are allowed } 
+Sample invalid usage:
+FileInputStream fis1 = null; try( fis1 = new FileInputStream("test1.txt") ) //will not compile. This is neither a var{ } try( FileInputStream fis1 = new FileInputStream("test1.txt"), fis2 = new FileInputStream("t){ //can't declare multiple variables in the same declaration statement } try(FileInputStream fis = new FileInputStream("test1.txt")){ //do something with fis }finally{ fis.reset(); //will not compile because fis is out of scope } 
+1. Only classes that implement java.lang.AutoCloseable can be used with try-with-resources. The interface has voidclose(); method.2. Resources are opened in the order specified in the try clause.3. close() is called on the resources in reverse order of their declaration.4. close() is called on all of the resources mentioned in the try clause irrespective of whether they were instantiated in the tryclause or not.5. The catch and finally blocks are executed after the resources are closed.6. The variables specified in the try-with-resources clause must be final or effectively final.7. The scope of the variables defined in the try-with-resources clause is the try block.
+Managing exceptions encountered while closing resources
+1. Situation 1: An exception is thrown by the code in the try block and an exception is thrown by the close method of one or moreof the managed resources. In this case, the exceptions thrown by the resource closure are suppressed but are available in the array of suppressedexceptions of the exception thrown by the code in the try block.2. Situation 2: The code in the try block executes without any exception but the close methods of one or more managed resourcesthrow an exception. In this case, the first exception thrown is the exception received by the caller but that exception contains all of the exceptionsencountered while closing the rest of the resources in its list of suppressed exceptions.
