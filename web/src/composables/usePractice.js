@@ -28,6 +28,10 @@ const reviewTotal = computed(() => session.value.length - newTotal.value);
 const done = computed(() => Math.min(cursor.value, session.value.length));
 const doneNew = computed(() => session.value.slice(0, cursor.value).filter(isSessionNew).length);
 const doneReview = computed(() => done.value - doneNew.value);
+// Remaining counts: decrease as cards are viewed, never grow when a new card
+// becomes a review mid-session (classification is frozen per session).
+const newLeft = computed(() => Math.max(0, newTotal.value - doneNew.value));
+const reviewLeft = computed(() => Math.max(0, reviewTotal.value - doneReview.value));
 
 // New cards are introduced in chapter order (then section order).
 function chapterOrder(list) {
@@ -91,5 +95,5 @@ function setNewOnly(v) { newOnly.value = v; buildSession(); }
 function trainTrap(tag) { scope.value = 'trap:' + tag; buildSession(); }
 
 export function usePractice() {
-  return { scope, newOnly, session, cursor, current, revealed, buildSession, next, shuffle, newCardsSession, setScope, setNewOnly, trainTrap, allItems, isNewItem, newTotal, reviewTotal, done, doneNew, doneReview, goal, reviewsDue, newAllowance };
+  return { scope, newOnly, session, cursor, current, revealed, buildSession, next, shuffle, newCardsSession, setScope, setNewOnly, trainTrap, allItems, isNewItem, newTotal, reviewTotal, newLeft, reviewLeft, done, doneNew, doneReview, goal, reviewsDue, newAllowance };
 }

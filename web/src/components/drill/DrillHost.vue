@@ -111,7 +111,7 @@ async function reveal(forceWrong = false) {
   }
   if (forceWrong) { correct.value = false; mine.value = "(I don't know)"; }
 }
-function dontKnow() { reveal(true).then(() => { unknown.value = true; gradeCard('unknown'); }); }
+function dontKnow() { reveal(true).then(() => { unknown.value = true; }); }
 function suggestedGrade() {
   if (unknown.value) return 'unknown';
   return correct.value ? (hintsShown.value > 0 ? 'getting' : 'good') : 'unknown';
@@ -121,10 +121,8 @@ function gradeCard(key) {
   graded.value = true; grade.value = key;
   recordResult(props.drill, correct.value, hintsShown.value, key);
 }
-function advance() {
-  if (!graded.value) gradeCard(suggestedGrade());
-  next();
-}
+// Grading is the last step: choosing a grade records the result and advances.
+function onGrade(key) { gradeCard(key); next(); }
 defineExpose({ run: reveal });
 </script>
 
@@ -160,8 +158,8 @@ defineExpose({ run: reveal });
     <div v-if="busy" class="spin" style="margin-top:12px">Compiling and running on the JVM…</div>
 
     <RevealPanel v-if="revealed" :drill="drill" :correct="correct" :mine="mine" :actual="actual" :raw-output="rawOutput" />
-    <GradeInput v-if="revealed" :suggested="suggestedGrade()" :chosen="grade" :graded="graded" :current-box="box || 0" @grade="gradeCard" />
-    <TeachBack v-if="revealed" :drill="drill" @advance="advance" />
+    <TeachBack v-if="revealed && !OFFLINE" :drill="drill" />
+    <GradeInput v-if="revealed" :suggested="suggestedGrade()" :chosen="grade" :graded="graded" :current-box="box || 0" @grade="onGrade" />
     <AiPanel v-if="revealed" :drill="drill" :correct="correct" :mine="mine" :actual="actual" />
   </div>
 </template>

@@ -10,6 +10,7 @@ import { useRun } from '../../composables/useRun';
 import { usePractice } from '../../composables/usePractice';
 import { useContent } from '../../composables/useContent';
 import { useToasts } from '../../composables/useToasts';
+import { OFFLINE } from '../../lib/mode.js';
 
 const props = defineProps({ drill: { type: Object, required: true } });
 const { state, save, recordResult } = useProgress();
@@ -76,7 +77,6 @@ async function runTests() {
 function dontKnow() {
   if (busy.value) return;
   revealed.value = true; unknown.value = true; tests.value = []; compiled.value = true; stderr.value = '';
-  gradeCard('unknown');
   push('Marked as not known.', 'warn');
 }
 function suggestedGrade() {
@@ -88,10 +88,8 @@ function gradeCard(key) {
   graded.value = true; grade.value = key;
   recordResult(props.drill, allOk.value, hintsShown.value, key);
 }
-function advance() {
-  if (!graded.value) gradeCard(suggestedGrade());
-  next();
-}
+// Grading is the last step: choosing a grade records the result and advances.
+function onGrade(key) { gradeCard(key); next(); }
 defineExpose({ run: runTests });
 </script>
 
@@ -133,8 +131,8 @@ defineExpose({ run: runTests });
           <span class="exp">got {{ t.got }}</span>
         </div>
       </template>
-      <GradeInput :suggested="suggestedGrade()" :chosen="grade" :graded="graded" :current-box="box || 0" @grade="gradeCard" />
-      <TeachBack :drill="drill" @advance="advance" />
+      <TeachBack v-if="!OFFLINE" :drill="drill" />
+      <GradeInput :suggested="suggestedGrade()" :chosen="grade" :graded="graded" :current-box="box || 0" @grade="onGrade" />
       <AiPanel :drill="drill" :correct="allOk" :mine="passed + '/' + expectedCount" :actual="(drill.expected || []).join(', ')" />
     </div>
   </div>

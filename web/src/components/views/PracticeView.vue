@@ -9,7 +9,7 @@ import { useProgress } from '../../composables/useProgress';
 import { OFFLINE } from '../../lib/mode.js';
 
 const emit = defineEmits(['home']);
-const { scope, newOnly, session, cursor, current, buildSession, shuffle, setScope, setNewOnly, newCardsSession, newTotal, reviewTotal, done } = usePractice();
+const { scope, newOnly, session, cursor, current, buildSession, shuffle, setScope, setNewOnly, newCardsSession, newLeft, reviewLeft, done } = usePractice();
 const { chapters, allItems } = useContent();
 const { state, todayAnswered, isNew } = useProgress();
 const host = ref(null);
@@ -38,8 +38,8 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKey));
       <div class="session-top">
         <button v-if="!OFFLINE" class="btn ghost sm" @click="emit('home')">&larr; Home</button>
         <div class="session-stats">
-          <Badge kind="new" title="Unseen cards introduced this session (up to your daily goal)">New {{ newTotal }}</Badge>
-          <Badge kind="review" title="Cards due for review today">Review {{ reviewTotal }}</Badge>
+          <Badge kind="new" title="New cards left in this session">New {{ newLeft }}</Badge>
+          <Badge kind="review" title="Review cards left in this session">Review {{ reviewLeft }}</Badge>
           <Badge kind="done" title="Cards finished this session">Done {{ done }} / {{ session.length }}</Badge>
         </div>
         <div class="spacer"></div>
