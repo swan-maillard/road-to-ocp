@@ -1,6 +1,6 @@
 {
   "schema": "ocplab.seed.v1",
-  "generatedAt": "2026-10-09T14:53:15.567Z",
+  "generatedAt": "2026-10-09T20:16:38.127Z",
   "entries": {
     "ocplab.progress.v1": {
       "items": {
@@ -2024,6 +2024,9 @@
         },
         "t2-reverse-words": {
           "code": "class Solution {\n    static String reverseWords(String s) {\n        String[] arr = s.split(\" \").reverse();\n        return arr.join(\" \");\n    }\n}"
+        },
+        "t9-atomic-counter": {
+          "code": "import java.util.concurrent.atomic.*;\n\nclass Solution {\n    static int count(int n) throws Exception {\n        // TODO: two threads + join\n        return -1;\n    }\n}"
         }
       },
       "reports": []
