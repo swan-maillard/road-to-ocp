@@ -1,11 +1,7 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useAi } from '../../composables/useAi';
 import { useContent } from '../../composables/useContent';
-import { useToasts } from '../../composables/useToasts';
-import { useRun } from '../../composables/useRun';
-import { usePractice } from '../../composables/usePractice';
-import { outcomeOf, exceptionName, norm } from '../../lib/util';
 import { OFFLINE } from '../../lib/mode.js';
 import Markdown from '../ui/Markdown.vue';
 
@@ -14,18 +10,19 @@ const props = defineProps({
   correct: { type: Boolean, default: false },
   mine: { type: String, default: '' },
   actual: { type: String, default: '' },
+  code: { type: String, default: '' }, // learner's source (write tasks only)
+  unlocked: { type: Boolean, default: false }, // solution may be revealed (solved / gave up)
 });
 
 const { configured, aiCall } = useAi();
 const { groundedReference, refBlock } = useContent();
-const { push } = useToasts();
-const { runJava } = useRun();
-const { session, cursor } = usePractice();
 
 const logs = ref([]);
 const question = ref('');
 const busy = ref(false);
 const chat = ref([]);
+
+const isWrite = computed(() => props.drill.kind === 'write');
 
 function ctx() {
   const d = props.drill;
@@ -78,46 +75,46 @@ async function ask() {
     add('ai', 'Tutor', raw);
   } catch (e) { add('ai', 'AI error', String(e.message || e)); } finally { busy.value = false; }
 }
-async function generate(harder) {
+async function optimal() {
   if (!configured.value) return;
   busy.value = true;
   try {
     const ref = await groundedReference(props.drill);
     const raw = await aiCall([
-      { role: 'system', content: 'You generate OCP Java 25 (1Z0-831) micro-drills grounded in the provided reference. Output ONLY JSON {"drills":[...]}. Each drill: {"id":string,"chapter":int,"section":string,"objective":string,"kind":"code","outcome":"OUTPUT"|"NO_OUTPUT"|"COMPILE_ERROR"|"RUNTIME_ERROR","trap":string,"difficulty":1-3,"prompt":string,"code":string,"answer":string,"explanation":string,"ref":string,"teachBack":string}. code must be a complete Java 25 compact source file with void main(){} using IO for output, at most 8 lines, testing EXACTLY one rule. answer is exact stdout for OUTPUT, exception name for RUNTIME_ERROR, else "".' },
-      { role: 'user', content: 'Theme (trap): ' + props.drill.trap + '. Reference drill: ' + ctx() + '. Generate 3 ' + (harder ? 'HARDER, more deceptive' : 'similar') + ' drills testing the same rule.' + refBlock(ref) },
-    ], { json: true, temperature: harder ? 0.6 : 0.4, maxTokens: 1400 });
-    let j; try { j = JSON.parse(raw); } catch { add('ai', 'AI error', 'Could not parse generated drills.'); return; }
-    const list = (j.drills || []).filter((x) => x && x.code);
-    if (!list.length) { add('ai', 'AI', 'No drills returned.'); return; }
-    const added = [];
-    for (let i = 0; i < list.length; i++) {
-      const g = list[i];
-      g.id = 'ai-' + Date.now() + '-' + i; g.kind = 'code'; g.source = 'ai';
-      g.chapter = props.drill.chapter; g.section = props.drill.section; g.trap = g.trap || props.drill.trap;
-      g.difficulty = harder ? 3 : (g.difficulty || props.drill.difficulty);
-      const v = await runJava(g.code);
-      const oc = outcomeOf(v); g.outcome = oc;
-      g.answer = oc === 'OUTPUT' ? norm(v.stdout) : oc === 'RUNTIME_ERROR' ? exceptionName(v.stderr) : '';
-      added.push(g);
-    }
-    session.value.splice(cursor.value + 1, 0, ...added);
-    add('ai', added.length + ' new drill(s) added', added.map((g, i) => (i + 1) + '. ' + g.prompt + ' [' + g.outcome + ']').join('\n') + '\n\nOutcomes decided by the JVM.');
-    push(added.length + ' drills inserted after this one', 'ok');
+      { role: 'system', content: 'You are an expert OCP Java 25 tutor. Give the optimal, exam-ready solution for this task. Output the Java code in one fenced block, then at most 2 short sentences on why it is optimal. Keep it minimal and idiomatic; use a compact source file (void main()) unless the task requires otherwise.' },
+      { role: 'user', content: 'Task: ' + ctx() + '\nExpected output: ' + (props.drill.expected || []).join(' | ') + refBlock(ref) },
+    ], { temperature: 0.2, maxTokens: 700 });
+    add('ai', 'Optimal solution', raw);
   } catch (e) { add('ai', 'AI error', String(e.message || e)); } finally { busy.value = false; }
 }
-function report() { push('Flagged locally for review.', 'warn'); }
+async function review() {
+  if (!configured.value) return;
+  const src = (props.code || '').trim();
+  if (!src) { add('ai', 'Solution review', 'Write some code first, then ask for a review.'); return; }
+  busy.value = true;
+  try {
+    const ref = await groundedReference(props.drill);
+    const raw = await aiCall([
+      { role: 'system', content: 'You are an expert OCP Java 25 code reviewer. Review the learner\'s solution against the task and expected output. In at most 4 short bullets: whether it is correct, the exact rule/misconception at play, and one concrete improvement. If it is wrong, give only the minimal fix, not a full rewrite.' },
+      { role: 'user', content: 'Task: ' + ctx() + '\nExpected output: ' + (props.drill.expected || []).join(' | ') + '\n\nLearner code:\n"""\n' + src + '\n"""' + refBlock(ref) },
+    ], { temperature: 0.2, maxTokens: 700 });
+    add('ai', 'Solution review', raw);
+  } catch (e) { add('ai', 'AI error', String(e.message || e)); } finally { busy.value = false; }
+}
 </script>
 <template>
   <div v-if="!OFFLINE" class="ai-panel">
-    <div v-if="!configured" class="muted">Add <b>DEEPSEEK_API_KEY</b> to <code>.env</code> and restart to unlock grounded explanations, teach-back grading, Q&amp;A, and drill generation.</div>
+    <div v-if="!configured" class="muted">Add <b>DEEPSEEK_API_KEY</b> to <code>.env</code> and restart to unlock grounded explanations, teach-back grading, Q&amp;A, and solution review.</div>
     <template v-else>
       <div class="ai-tools">
-        <button v-if="!correct" type="button" @click="why">Why was I wrong?</button>
-        <button type="button" @click="generate(false)">More like this (+3)</button>
-        <button type="button" @click="generate(true)">Trickier (+3)</button>
-        <button type="button" @click="verify">Verify vs PDF</button>
-        <button type="button" @click="report">Report</button>
+        <template v-if="isWrite">
+          <button v-if="unlocked" type="button" @click="optimal">Optimal solution</button>
+          <button type="button" @click="review">Review my solution</button>
+        </template>
+        <template v-else>
+          <button v-if="!correct" type="button" @click="why">Why was I wrong?</button>
+          <button type="button" @click="verify">Verify vs PDF</button>
+        </template>
       </div>
       <div class="ai-ask">
         <input v-model="question" class="text" placeholder="Ask about this drill or theme…" @keydown.enter.prevent="ask" />

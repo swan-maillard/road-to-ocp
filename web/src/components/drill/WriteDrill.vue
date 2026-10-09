@@ -139,7 +139,7 @@ defineExpose({ run: runTests });
       </details>
       <TeachBack v-if="done && !OFFLINE" :drill="drill" />
       <GradeInput v-if="done" :suggested="suggestedGrade()" :chosen="grade" :graded="graded" :current-box="box || 0" @grade="onGrade" />
-      <AiPanel v-if="ran" :drill="drill" :correct="allOk" :mine="passed + '/' + expectedCount" :actual="(drill.expected || []).join(', ')" />
+      <AiPanel v-if="ran" :drill="drill" :correct="allOk" :mine="passed + '/' + expectedCount" :actual="(drill.expected || []).join(', ')" :code="code" :unlocked="done" />
     </div>
   </div>
 </template>
