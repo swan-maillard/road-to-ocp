@@ -6,12 +6,12 @@ const emit = defineEmits(['update:modelValue']);
 <template>
   <div class="outcome-btns">
     <button
-      v-for="(o, i) in OUTCOMES" :key="o.id" type="button"
+      v-for="o in OUTCOMES" :key="o.id" type="button"
       :class="{ sel: modelValue === o.id && !actual, correct: actual === o.id, wrong: actual && actual !== o.id && modelValue === o.id }"
       :disabled="!!actual"
       @click="emit('update:modelValue', o.id)"
     >
-      {{ o.label }}<span class="num">{{ i + 1 }}</span>
+      {{ o.label }}
     </button>
   </div>
 </template>

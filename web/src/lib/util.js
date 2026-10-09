@@ -1,6 +1,5 @@
 export const OUTCOMES = [
-  { id: 'OUTPUT', label: 'Compiles & prints' },
-  { id: 'NO_OUTPUT', label: 'Compiles, no output' },
+  { id: 'OUTPUT', label: 'Compiles' },
   { id: 'COMPILE_ERROR', label: 'Compile error' },
   { id: 'RUNTIME_ERROR', label: 'Runtime error' },
 ];

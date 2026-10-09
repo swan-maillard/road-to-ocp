@@ -1,21 +1,23 @@
 <script setup>
-import { ref, onMounted, onBeforeUnmount, watch } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount, watch } from 'vue';
 import { createReadOnly, setDoc, setTheme, destroy } from '../../lib/cm';
 import { useTheme } from '../../composables/useTheme';
 import { useToasts } from '../../composables/useToasts';
+import { formatJava } from '../../lib/format';
 
 const props = defineProps({ code: { type: String, default: '' }, lang: { type: String, default: 'Java' } });
 const host = ref(null);
 let view = null;
 const { theme } = useTheme();
 const { push } = useToasts();
+const formatted = computed(() => formatJava(props.code));
 
-onMounted(() => { if (host.value) view = createReadOnly({ parent: host.value, doc: props.code, theme: theme.value }); });
-watch(() => props.code, (c) => { if (view) setDoc(view, c); });
+onMounted(() => { if (host.value) view = createReadOnly({ parent: host.value, doc: formatted.value, theme: theme.value }); });
+watch(formatted, (c) => { if (view) setDoc(view, c); });
 watch(theme, (t) => { if (view) setTheme(view, t); });
 onBeforeUnmount(() => { if (view) destroy(view); });
 
-function copy() { navigator.clipboard.writeText(props.code).then(() => push('Copied to clipboard', 'ok'), () => push('Copy failed', 'bad')); }
+function copy() { navigator.clipboard.writeText(formatted.value).then(() => push('Copied to clipboard', 'ok'), () => push('Copy failed', 'bad')); }
 </script>
 <template>
   <div class="code-shell">

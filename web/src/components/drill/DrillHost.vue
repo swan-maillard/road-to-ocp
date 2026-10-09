@@ -57,7 +57,6 @@ const hintList = computed(() => {
 });
 function nextHint() { if (hintsShown.value < hintList.value.length) hintsShown.value++; }
 
-const needsText = computed(() => props.drill.outcome === 'OUTPUT');
 const revealLabel = computed(() => 'Reveal answer');
 const box = computed(() => { const r = state.items[props.drill.id]; return r && r.seen ? r.box : null; });
 
@@ -79,16 +78,18 @@ async function reveal(forceWrong = false) {
   } else {
     // Grade against the answer captured when the drill was authored and
     // verified on the JVM (scripts/verify.mjs) — no JVM round-trip needed.
-    const a = d.outcome || 'OUTPUT';
+    const raw = d.outcome || 'OUTPUT';
+    const noOutput = raw === 'NO_OUTPUT';
+    const a = noOutput ? 'OUTPUT' : raw;
     actualOutcome.value = a;
     rawOutput.value = '';
     const t = norm(text.value);
     let textOk = true;
-    if (a === 'OUTPUT') textOk = t !== '' && t === norm(d.answer);
+    if (a === 'OUTPUT') textOk = noOutput ? t === '' : (t !== '' && t === norm(d.answer));
     else if (t) { if (a === 'RUNTIME_ERROR') textOk = t.toLowerCase().includes(norm(d.answer).toLowerCase()); else textOk = false; }
     correct.value = (outcome.value || 'OUTPUT') === a && textOk;
     mine.value = (outcome.value ? OUTCOME_LABEL[outcome.value] : '(no outcome)') + (text.value ? '\n' + t : '');
-    actual.value = OUTCOME_LABEL[a] + (a === 'OUTPUT' ? '\n' + norm(d.answer) : (a === 'RUNTIME_ERROR' ? '\n' + (d.answer || '') : ''));
+    actual.value = OUTCOME_LABEL[a] + (a === 'OUTPUT' ? (noOutput ? '' : '\n' + norm(d.answer)) : (a === 'RUNTIME_ERROR' ? '\n' + (d.answer || '') : ''));
     revealed.value = true;
   }
   if (forceWrong) { correct.value = false; mine.value = "(I don't know)"; }
@@ -124,9 +125,9 @@ defineExpose({ run: reveal });
     <OrderInput v-else-if="drill.kind === 'order'" :items="drill.items" v-model="order" :actual="revealed ? drill.answer : null" />
     <TraceInput v-else-if="drill.kind === 'trace'" :columns="drill.columns" :rows="drill.rows" v-model="trace" :actual="revealed ? drill.rows.map((r) => r.cells) : null" />
     <div v-else class="answer-area">
-      <label>What happens? <span class="muted">{{ needsText ? '(pick one, then type the exact output — required)' : '(pick one; exact result optional)' }}</span></label>
+      <label>What happens? <span class="muted">(pick one; type the exact result if any)</span></label>
       <OutcomeButtons v-model="outcome" :actual="actualOutcome" />
-      <input v-model="text" class="text" :disabled="revealed" :placeholder="needsText ? 'exact printed output (required)' : 'exact printed output or exception name (optional)'" style="width:100%; font-family:var(--mono);" />
+      <input v-model="text" class="text" :disabled="revealed" placeholder="exact result (if any)" style="width:100%; font-family:var(--mono);" />
     </div>
 
     <Hints :list="hintList" :shown="hintsShown" />

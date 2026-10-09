@@ -193,9 +193,8 @@ select:focus, input:focus, textarea:focus { border-color: var(--accent); box-sha
 .action-bar { display: flex; align-items: center; gap: var(--sp-2); flex-wrap: wrap; margin-top: var(--sp-5); padding-top: var(--sp-4); border-top: 1px solid var(--border); }
 
 /* ---------- outcome segmented control ---------- */
-.outcome-btns { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-2); margin: var(--sp-2) 0 var(--sp-4); }
-.outcome-btns button { min-height: 44px; background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: var(--r-sm); padding: var(--sp-2) var(--sp-3); font-size: var(--t-sm); font-weight: 600; display: flex; flex-direction: column; gap: 2px; align-items: flex-start; text-align: left; cursor: pointer; transition: all .13s var(--ease); }
-.outcome-btns button .num { color: var(--faint); font-size: 10px; }
+.outcome-btns { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--sp-2); margin: var(--sp-2) 0 var(--sp-4); }
+.outcome-btns button { min-height: 44px; background: var(--surface-2); border: 1px solid var(--border-strong); border-radius: var(--r-sm); padding: var(--sp-2) var(--sp-3); font-size: var(--t-sm); font-weight: 600; display: flex; align-items: center; justify-content: center; text-align: center; cursor: pointer; transition: all .13s var(--ease); }
 .outcome-btns button:hover { border-color: var(--accent); }
 .outcome-btns button.sel { border-color: var(--accent); background: var(--accent-soft); }
 .outcome-btns button.correct { border-color: var(--ok); background: var(--ok-soft); }
