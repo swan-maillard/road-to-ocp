@@ -7,7 +7,7 @@ import { useProgress } from '../../composables/useProgress';
 import { useTheme } from '../../composables/useTheme';
 import { OFFLINE } from '../../lib/mode.js';
 
-defineProps({ view: String });
+defineProps({ view: String, minimal: Boolean });
 const emit = defineEmits(['set', 'ai', 'data', 'help']);
 
 const { state, todayAnswered } = useProgress();
@@ -15,12 +15,12 @@ const { theme, toggle } = useTheme();
 const goal = computed(() => Math.max(1, state.settings.goal || 20));
 </script>
 <template>
-  <header class="topbar">
+  <header class="topbar" :class="{ slim: minimal }">
     <div class="brand">
       <div class="logo">25</div>
-      <div><h1>Road to OCP</h1><div class="sub">Java 25 &middot; 1Z0-831</div></div>
+      <div><h1>Road to OCP</h1><div class="sub">{{ minimal ? 'Training' : 'Java 25 · 1Z0-831' }}</div></div>
     </div>
-    <NavTabs :view="view" @set="emit('set', $event)" />
+    <NavTabs v-if="!minimal" :view="view" @set="emit('set', $event)" />
     <div class="hud">
       <span v-if="OFFLINE" class="offline-badge" title="Frontend-only build — progress is saved on this device. Use Settings to export it."><i class="dot"></i>Offline</span>
       <GoalRing :count="todayAnswered()" :goal="goal" />

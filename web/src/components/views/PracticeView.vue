@@ -6,6 +6,7 @@ import Badge from '../ui/Badge.vue';
 import { usePractice } from '../../composables/usePractice';
 import { useContent } from '../../composables/useContent';
 import { useProgress } from '../../composables/useProgress';
+import { OFFLINE } from '../../lib/mode.js';
 
 const emit = defineEmits(['home']);
 const { scope, interleave, session, cursor, current, buildSession, reshuffle, setScope, newCardsSession, newTotal, reviewTotal, done } = usePractice();
@@ -35,7 +36,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKey));
   <div class="view">
     <div class="session-head">
       <div class="session-top">
-        <button class="btn ghost sm" @click="emit('home')">&larr; Home</button>
+        <button v-if="!OFFLINE" class="btn ghost sm" @click="emit('home')">&larr; Home</button>
         <div class="session-stats">
           <Badge kind="new" title="Unseen cards introduced this session (up to your daily goal)">New {{ newTotal }}</Badge>
           <Badge kind="review" title="Cards due for review today">Review {{ reviewTotal }}</Badge>
@@ -66,7 +67,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKey));
         <div class="row-actions" style="justify-content:center">
           <button v-if="newRemaining" class="btn primary" @click="newCardsSession()">Start {{ Math.min(goal, newRemaining) }} new cards</button>
           <button class="btn ghost" @click="reshuffle">Reshuffle</button>
-          <button class="btn ghost" @click="emit('home')">Home</button>
+          <button v-if="!OFFLINE" class="btn ghost" @click="emit('home')">Home</button>
         </div>
       </div>
     </div>

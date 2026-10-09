@@ -8,4 +8,6 @@ data/
 # offline (GitHub Pages) build
 dist-offline/
 web/public/offline-content.json
+web/public/offline-seed.json
 public/offline-content.json
+public/offline-seed.json

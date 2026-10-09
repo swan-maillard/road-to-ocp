@@ -1,0 +1,1406 @@
+{
+  "schema": "ocplab.seed.v1",
+  "generatedAt": "2026-10-09T12:46:59.890Z",
+  "entries": {
+    "ocplab.progress.v1": {
+      "items": {
+        "ch1-autobox-widen-fails": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 1,
+          "seen": 2,
+          "lastTeach": "ok",
+          "lastSeen": 1791535761839,
+          "lastResult": "correct",
+          "firstSeen": 1791533624509,
+          "teachNote": "Unboxing then widening is fine (Int -> int -> double)\nWidening then Autoboxing is not ok (int -> double -> Double)"
+        },
+        "ch1-unbox-widen-ok": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": "ok",
+          "lastSeen": 1791533872141,
+          "lastResult": "correct",
+          "firstSeen": 1791533872141,
+          "teachNote": "Unbox + widen OK\nwiden + box NOK"
+        },
+        "ch1-valueof-radix": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": "bad",
+          "lastSeen": 1791534117108,
+          "lastResult": "correct",
+          "firstSeen": 1791534117108,
+          "teachNote": "NumberException because 1_1 is valid number but \"1_1\" is not recognized as a valid number"
+        },
+        "ch1-parse-underscore": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791534151758,
+          "lastResult": "correct",
+          "firstSeen": 1791534151758
+        },
+        "ch1-fill-parseint": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791534190179,
+          "lastResult": "correct",
+          "firstSeen": 1791534190179
+        },
+        "extra-bug-wrappers": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": "mid",
+          "lastSeen": 1791534222194,
+          "lastResult": "correct",
+          "firstSeen": 1791534222194,
+          "teachNote": "line 3 only widens ; line 4 tries to widen + box"
+        },
+        "ch1-gap-cast-double-int": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791534421027,
+          "lastResult": "correct",
+          "firstSeen": 1791534421027
+        },
+        "ch1-gap-double-from-integer": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791534440424,
+          "lastResult": "correct",
+          "firstSeen": 1791534440424
+        },
+        "ch1-gap-short-cast-integer": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 1,
+          "seen": 2,
+          "lastTeach": null,
+          "lastSeen": 1791535728128,
+          "lastResult": "correct",
+          "firstSeen": 1791534482663
+        },
+        "ch1-gap-underscore-literal": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791534501823,
+          "lastResult": "correct",
+          "firstSeen": 1791534501823
+        },
+        "ch1-gap-valueof-string-nfe": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791534529332,
+          "lastResult": "correct",
+          "firstSeen": 1791534529332
+        },
+        "ch1-gap-string-plus-compile-error": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791534588726,
+          "lastResult": "correct",
+          "firstSeen": 1791534588726
+        },
+        "ch1-gap-concept-wrapper-interfaces": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 1,
+          "seen": 2,
+          "lastTeach": "mid",
+          "lastSeen": 1791535593582,
+          "lastResult": "correct",
+          "firstSeen": 1791534634570,
+          "teachNote": "Byte, Short, Int, Float, Double"
+        },
+        "t1-unbox-widen": {
+          "box": 2,
+          "correct": 2,
+          "wrong": 0,
+          "seen": 2,
+          "lastTeach": "mid",
+          "lastSeen": 1791534741772,
+          "lastResult": "correct",
+          "firstSeen": 1791534684323,
+          "teachNote": "Integer can unbox to int and then widen automatically because double is bigger than int.\nwidening then boxing though is forbidden."
+        },
+        "ch1-int-division": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": "ok",
+          "lastSeen": 1791534876623,
+          "lastResult": "correct",
+          "firstSeen": 1791534876623,
+          "teachNote": "If i is a double or 2.0 is used"
+        },
+        "ch1-char-plus-int": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791534953670,
+          "lastResult": "correct",
+          "firstSeen": 1791534953670
+        },
+        "ch1-unary-plus-assign": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791534993841,
+          "lastResult": "correct",
+          "firstSeen": 1791534993841
+        },
+        "ch1-post-decrement": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": "bad",
+          "lastSeen": 1791535052173,
+          "lastResult": "correct",
+          "firstSeen": 1791535052173,
+          "teachNote": "-4 9"
+        },
+        "ch1-bitwise-not-xor": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 1,
+          "seen": 2,
+          "lastTeach": "ok",
+          "lastSeen": 1791535683555,
+          "lastResult": "correct",
+          "firstSeen": 1791535323914,
+          "teachNote": "It equals -n-1 because it's 2-complement of n"
+        },
+        "ch1-not-a-statement": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791535400339,
+          "lastResult": "correct",
+          "firstSeen": 1791535400339
+        },
+        "ch1-no-output": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791539543667,
+          "lastResult": "correct",
+          "firstSeen": 1791539543667
+        },
+        "ch1-compound-assign-unbox": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": "bad",
+          "lastSeen": 1791539988263,
+          "lastResult": "correct",
+          "firstSeen": 1791539988263,
+          "teachNote": "20 is int, so it is autoboxed to Integer and added to i"
+        },
+        "ch1-xor-boolean": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 1,
+          "seen": 2,
+          "lastTeach": null,
+          "lastSeen": 1791541620880,
+          "lastResult": "correct",
+          "firstSeen": 1791540311855
+        },
+        "ch1-concept-promotion": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": "mid",
+          "lastSeen": 1791540361074,
+          "lastResult": "correct",
+          "firstSeen": 1791540361074,
+          "teachNote": "All members are widened to int, then widened to the largest"
+        },
+        "extra-order-precedence": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791540504875,
+          "lastResult": "correct",
+          "firstSeen": 1791540504875
+        },
+        "ch1-gap-parentheses": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791540702104,
+          "lastResult": "correct",
+          "firstSeen": 1791540702104
+        },
+        "ch1-gap-bitwise-and-noshortcircuit": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791540774781,
+          "lastResult": "correct",
+          "firstSeen": 1791540774781
+        },
+        "ch1-gap-logical-shortcircuit": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791540807895,
+          "lastResult": "correct",
+          "firstSeen": 1791540807895
+        },
+        "ch1-gap-ternary-nested-17": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791540918901,
+          "lastResult": "correct",
+          "firstSeen": 1791540918901
+        },
+        "ch1-gap-char-cast-promotion": {
+          "box": 1,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791540978542,
+          "lastResult": "wrong",
+          "firstSeen": 1791540978542
+        },
+        "ch1-gap-concept-precedence-assoc": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791541021459,
+          "lastResult": "correct",
+          "firstSeen": 1791541021459
+        },
+        "t1-arith-precedence": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791541083812,
+          "lastResult": "correct",
+          "firstSeen": 1791541083812
+        },
+        "ch1-math-round-negative": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 1,
+          "seen": 2,
+          "lastTeach": null,
+          "lastSeen": 1791541670976,
+          "lastResult": "correct",
+          "firstSeen": 1791541147262
+        },
+        "ch1-random-cast": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791541185274,
+          "lastResult": "correct",
+          "firstSeen": 1791541185274
+        },
+        "ch1-gap-math-overloads": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": "ok",
+          "lastSeen": 1791541233440,
+          "lastResult": "correct",
+          "firstSeen": 1791541233439,
+          "teachNote": "round double returns long, and round float returns int"
+        },
+        "ch1-gap-math-random-range": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791541300217,
+          "lastResult": "correct",
+          "firstSeen": 1791541300217
+        },
+        "ch1-concat-order": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791541346053,
+          "lastResult": "correct",
+          "firstSeen": 1791541346053
+        },
+        "ch2-string-immutable": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 1,
+          "seen": 2,
+          "lastTeach": "ok",
+          "lastSeen": 1791541643607,
+          "lastResult": "correct",
+          "firstSeen": 1791541366854,
+          "teachNote": "Because it returns the uppercase string, it does not mutate a string that is immutable"
+        },
+        "ch2-substring-range": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791541428836,
+          "lastResult": "correct",
+          "firstSeen": 1791541428836
+        },
+        "ch2-substring-one-arg": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791541455911,
+          "lastResult": "correct",
+          "firstSeen": 1791541455911
+        },
+        "ch2-interning-vs-new": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": "ok",
+          "lastSeen": 1791541704905,
+          "lastResult": "correct",
+          "firstSeen": 1791541704905,
+          "teachNote": "== is safe if we define two times a string like\na = \"test\"\nb = \"test\"\nbecause it uses the same string from the pool\nIt is also safe id comparing the intern value \"test\".intern\n\nIn general equals is preferred because it compares the content not the address"
+        },
+        "ch2-intern-eq": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791541826958,
+          "lastResult": "correct",
+          "firstSeen": 1791541826958
+        },
+        "ch2-charat": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791541838960,
+          "lastResult": "correct",
+          "firstSeen": 1791541838960
+        },
+        "ch2-compareto": {
+          "box": 0,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791541878318,
+          "lastResult": "wrong",
+          "firstSeen": 1791541878318
+        },
+        "ch2-isblank": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791541921832,
+          "lastResult": "correct",
+          "firstSeen": 1791541921832
+        },
+        "ch2-split-trailing": {
+          "box": 0,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": "bad",
+          "lastSeen": 1791541965238,
+          "lastResult": "wrong",
+          "firstSeen": 1791541965238,
+          "teachNote": "I don't know"
+        },
+        "ch2-split-limit": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791542034571,
+          "lastResult": "correct",
+          "firstSeen": 1791542034571
+        },
+        "ch2-replace-literal": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": "bad",
+          "lastSeen": 1791542063378,
+          "lastResult": "correct",
+          "firstSeen": 1791542063378,
+          "teachNote": "I don't know"
+        },
+        "ch2-replaceall-regex": {
+          "box": 0,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791542120257,
+          "lastResult": "correct",
+          "firstSeen": 1791542120257
+        },
+        "ch2-strip-vs-trim": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791543013740,
+          "lastResult": "correct",
+          "firstSeen": 1791543013739
+        },
+        "ch2-concept-immutable": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": "bad",
+          "lastSeen": 1791543047785,
+          "lastResult": "correct",
+          "firstSeen": 1791543047785,
+          "teachNote": "It doesn't create a new String everytime, it only appends"
+        },
+        "ch2-fill-strip": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791543260951,
+          "lastResult": "correct",
+          "firstSeen": 1791543260951
+        },
+        "ch2-gap-string-ctor-chararray": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": "bad",
+          "lastSeen": 1791543350040,
+          "lastResult": "correct",
+          "firstSeen": 1791543350040,
+          "teachNote": "String and StringBuilder"
+        },
+        "ch2-gap-string-ctor-bytes": {
+          "box": 2,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791543401110,
+          "lastResult": "wrong",
+          "firstSeen": 1791543401110
+        },
+        "ch2-gap-literal-escapes": {
+          "box": 2,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": "mid",
+          "lastSeen": 1791543437619,
+          "lastResult": "wrong",
+          "firstSeen": 1791543437619,
+          "teachNote": "\\t a tab ; \\n a newline ; \\ escapes"
+        },
+        "ch2-gap-indexof": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": "ok",
+          "lastSeen": 1791543520838,
+          "lastResult": "correct",
+          "firstSeen": 1791543520838,
+          "teachNote": "-1"
+        },
+        "ch2-gap-lastindexof": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791543544427,
+          "lastResult": "correct",
+          "firstSeen": 1791543544427
+        },
+        "ch2-gap-contains-matches": {
+          "box": 0,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": "bad",
+          "lastSeen": 1791543589885,
+          "lastResult": "wrong",
+          "firstSeen": 1791543589885,
+          "teachNote": "No, since it's a regex it can match only a part of it"
+        },
+        "ch2-gap-lines": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": "ok",
+          "lastSeen": 1791543675761,
+          "lastResult": "correct",
+          "firstSeen": 1791543675761,
+          "teachNote": "lines() return a stream of the lines separated by line terminators"
+        },
+        "ch2-gap-indent": {
+          "box": 0,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": "ok",
+          "lastSeen": 1791543745727,
+          "lastResult": "wrong",
+          "firstSeen": 1791543745727,
+          "teachNote": "it adds n spaces and a line terminator"
+        },
+        "ch2-gap-stripindent": {
+          "box": 0,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": "mid",
+          "lastSeen": 1791543955632,
+          "lastResult": "wrong",
+          "firstSeen": 1791543955632,
+          "teachNote": "strip removes all spaces before and after, stripIndent only removes the spaces before each line"
+        },
+        "ch2-gap-transform": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791544051019,
+          "lastResult": "correct",
+          "firstSeen": 1791544051019
+        },
+        "t2-count-vowels": {
+          "box": 0,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791544469772,
+          "lastResult": "wrong",
+          "firstSeen": 1791544469772
+        },
+        "t2-normalize-space": {
+          "box": 0,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791544732728,
+          "lastResult": "wrong",
+          "firstSeen": 1791544732728
+        },
+        "ch2-textblock-trailing": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791544774074,
+          "lastResult": "correct",
+          "firstSeen": 1791544774074
+        },
+        "ch2-textblock-indent": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791544807315,
+          "lastResult": "correct",
+          "firstSeen": 1791544807315
+        },
+        "ch2-textblock-syntax": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791544816965,
+          "lastResult": "correct",
+          "firstSeen": 1791544816965
+        },
+        "ch2-gap-textblock-array": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791544842472,
+          "lastResult": "correct",
+          "firstSeen": 1791544842472
+        },
+        "ch2-gap-textblock-unclosed": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791544872337,
+          "lastResult": "correct",
+          "firstSeen": 1791544872337
+        },
+        "ch2-stringbuilder-append": {
+          "box": 0,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791544905972,
+          "lastResult": "wrong",
+          "firstSeen": 1791544905971
+        },
+        "ch2-stringbuilder-delete": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791544937518,
+          "lastResult": "correct",
+          "firstSeen": 1791544937518
+        },
+        "ch2-stringbuilder-substring": {
+          "box": 0,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": "mid",
+          "lastSeen": 1791544975388,
+          "lastResult": "wrong",
+          "firstSeen": 1791544975388,
+          "teachNote": "Change: append, delete, insert\nNot change: substring, and all others"
+        },
+        "ch2-stringbuilder-equals": {
+          "box": 0,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": "bad",
+          "lastSeen": 1791545053007,
+          "lastResult": "wrong",
+          "firstSeen": 1791545053007,
+          "teachNote": "string.equals(stringBuilder.intern)"
+        },
+        "ch2-contentequals": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791545123512,
+          "lastResult": "correct",
+          "firstSeen": 1791545123512
+        },
+        "ch2-stringbuilder-insert": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791545140814,
+          "lastResult": "correct",
+          "firstSeen": 1791545140814
+        },
+        "ch2-gap-stringbuilder-capacity": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791545199926,
+          "lastResult": "correct",
+          "firstSeen": 1791545199926
+        },
+        "ch2-gap-stringbuilder-indexof": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": "bad",
+          "lastSeen": 1791545226145,
+          "lastResult": "correct",
+          "firstSeen": 1791545226145,
+          "teachNote": "contains, matches"
+        },
+        "ch2-gap-concept-stringbuilder-threadsafe": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": "ok",
+          "lastSeen": 1791545282454,
+          "lastResult": "correct",
+          "firstSeen": 1791545282454,
+          "teachNote": "StringBuffer"
+        },
+        "t2-reverse-words": {
+          "box": 0,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791545511516,
+          "lastResult": "wrong",
+          "firstSeen": 1791545511516
+        },
+        "ch3-ternary-nested": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791545644655,
+          "lastResult": "correct",
+          "firstSeen": 1791545644655
+        }
+      },
+      "streak": 1,
+      "bestStreak": 8,
+      "seen": 88,
+      "ai": {},
+      "aiUsage": {
+        "calls": 40,
+        "promptTokens": 31123,
+        "completionTokens": 7200,
+        "cost": 0.016246410000000003
+      },
+      "history": [
+        {
+          "t": 1791533624510,
+          "id": "ch1-autobox-widen-fails",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791533872141,
+          "id": "ch1-unbox-widen-ok",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791534117109,
+          "id": "ch1-valueof-radix",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791534151758,
+          "id": "ch1-parse-underscore",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791534190179,
+          "id": "ch1-fill-parseint",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791534222195,
+          "id": "extra-bug-wrappers",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791534421028,
+          "id": "ch1-gap-cast-double-int",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791534440424,
+          "id": "ch1-gap-double-from-integer",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791534482663,
+          "id": "ch1-gap-short-cast-integer",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791534501823,
+          "id": "ch1-gap-underscore-literal",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791534529332,
+          "id": "ch1-gap-valueof-string-nfe",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791534588726,
+          "id": "ch1-gap-string-plus-compile-error",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791534634570,
+          "id": "ch1-gap-concept-wrapper-interfaces",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791534684323,
+          "id": "t1-unbox-widen",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791534741772,
+          "id": "t1-unbox-widen",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791534876623,
+          "id": "ch1-int-division",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791534953670,
+          "id": "ch1-char-plus-int",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791534993841,
+          "id": "ch1-unary-plus-assign",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791535052173,
+          "id": "ch1-post-decrement",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791535323914,
+          "id": "ch1-bitwise-not-xor",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791535400339,
+          "id": "ch1-not-a-statement",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791535593583,
+          "id": "ch1-gap-concept-wrapper-interfaces",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791535683555,
+          "id": "ch1-bitwise-not-xor",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791535728128,
+          "id": "ch1-gap-short-cast-integer",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791535761839,
+          "id": "ch1-autobox-widen-fails",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791539543667,
+          "id": "ch1-no-output",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791539988263,
+          "id": "ch1-compound-assign-unbox",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791540311855,
+          "id": "ch1-xor-boolean",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791540361074,
+          "id": "ch1-concept-promotion",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791540504876,
+          "id": "extra-order-precedence",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791540702104,
+          "id": "ch1-gap-parentheses",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791540774781,
+          "id": "ch1-gap-bitwise-and-noshortcircuit",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791540807896,
+          "id": "ch1-gap-logical-shortcircuit",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791540918901,
+          "id": "ch1-gap-ternary-nested-17",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791540978542,
+          "id": "ch1-gap-char-cast-promotion",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791541021460,
+          "id": "ch1-gap-concept-precedence-assoc",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791541083812,
+          "id": "t1-arith-precedence",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791541147263,
+          "id": "ch1-math-round-negative",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791541185274,
+          "id": "ch1-random-cast",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791541233440,
+          "id": "ch1-gap-math-overloads",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791541300217,
+          "id": "ch1-gap-math-random-range",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791541346053,
+          "id": "ch1-concat-order",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791541366854,
+          "id": "ch2-string-immutable",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791541428837,
+          "id": "ch2-substring-range",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791541455911,
+          "id": "ch2-substring-one-arg",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791541620880,
+          "id": "ch1-xor-boolean",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791541643607,
+          "id": "ch2-string-immutable",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791541670977,
+          "id": "ch1-math-round-negative",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791541704905,
+          "id": "ch2-interning-vs-new",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791541826958,
+          "id": "ch2-intern-eq",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791541838960,
+          "id": "ch2-charat",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791541878318,
+          "id": "ch2-compareto",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791541921832,
+          "id": "ch2-isblank",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791541965238,
+          "id": "ch2-split-trailing",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791542034571,
+          "id": "ch2-split-limit",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791542063378,
+          "id": "ch2-replace-literal",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791542120257,
+          "id": "ch2-replaceall-regex",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791543013740,
+          "id": "ch2-strip-vs-trim",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791543047785,
+          "id": "ch2-concept-immutable",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791543260951,
+          "id": "ch2-fill-strip",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791543350041,
+          "id": "ch2-gap-string-ctor-chararray",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791543401110,
+          "id": "ch2-gap-string-ctor-bytes",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791543437619,
+          "id": "ch2-gap-literal-escapes",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791543520838,
+          "id": "ch2-gap-indexof",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791543544427,
+          "id": "ch2-gap-lastindexof",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791543589885,
+          "id": "ch2-gap-contains-matches",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791543675761,
+          "id": "ch2-gap-lines",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791543745727,
+          "id": "ch2-gap-indent",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791543955632,
+          "id": "ch2-gap-stripindent",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791544051019,
+          "id": "ch2-gap-transform",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791544469773,
+          "id": "t2-count-vowels",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791544732728,
+          "id": "t2-normalize-space",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791544774074,
+          "id": "ch2-textblock-trailing",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791544807315,
+          "id": "ch2-textblock-indent",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791544816965,
+          "id": "ch2-textblock-syntax",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791544842472,
+          "id": "ch2-gap-textblock-array",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791544872337,
+          "id": "ch2-gap-textblock-unclosed",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791544905972,
+          "id": "ch2-stringbuilder-append",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791544937518,
+          "id": "ch2-stringbuilder-delete",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791544975388,
+          "id": "ch2-stringbuilder-substring",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791545053007,
+          "id": "ch2-stringbuilder-equals",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791545123512,
+          "id": "ch2-contentequals",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791545140814,
+          "id": "ch2-stringbuilder-insert",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791545199926,
+          "id": "ch2-gap-stringbuilder-capacity",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791545226145,
+          "id": "ch2-gap-stringbuilder-indexof",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791545282454,
+          "id": "ch2-gap-concept-stringbuilder-threadsafe",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791545511516,
+          "id": "t2-reverse-words",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791545644655,
+          "id": "ch3-ternary-nested",
+          "ok": true,
+          "hint": false
+        }
+      ],
+      "taxonomy": {
+        "Conversion & boxing": 3,
+        "Operators & precedence": 3,
+        "Other": 1,
+        "Strings": 14
+      },
+      "settings": {
+        "goal": 20
+      },
+      "tasks": {
+        "t1-unbox-widen": {
+          "code": "class Solution {\n    static double toDouble(Integer boxed) {\n        return boxed;\n    }\n}"
+        },
+        "t1-arith-precedence": {
+          "code": "class Solution {\n    static double average(int a, int b) {\n        return (a + b) / 2.0;\n    }\n}"
+        },
+        "t2-count-vowels": {
+          "code": "class Solution {\n    static int countVowels(String s) {\n      int count = 0;\n      for (char c : s.toLowerCase()) {\n        if (\"aeiouy\".contains(c)) {\n          ++count;\n        }\n      }\n      return count;\n    }\n}"
+        },
+        "t2-normalize-space": {
+          "code": "class Solution {\n    static String normalize(String s) {\n        return s.strip().replaceAll('\\s', ' ');\n    }\n}"
+        },
+        "t2-reverse-words": {
+          "code": "class Solution {\n    static String reverseWords(String s) {\n        String[] arr = s.split(\" \").reverse();\n        return arr.join(\" \");\n    }\n}"
+        }
+      },
+      "reports": []
+    },
+    "ocplab.theme": "dark"
+  }
+}

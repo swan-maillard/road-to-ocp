@@ -14,6 +14,7 @@ import HelpModal from './components/modals/HelpModal.vue';
 import { useContent } from './composables/useContent';
 import { usePractice } from './composables/usePractice';
 import { useAi } from './composables/useAi';
+import { OFFLINE } from './lib/mode.js';
 
 const view = ref('home');
 const showAi = ref(false);
@@ -23,7 +24,7 @@ const showHelp = ref(false);
 const { load } = useContent();
 const { buildSession } = usePractice();
 const { fetchStatus } = useAi();
-const wide = computed(() => ['home', 'cheat', 'traps', 'coverage'].includes(view.value));
+const wide = computed(() => !OFFLINE && ['home', 'cheat', 'traps', 'coverage'].includes(view.value));
 
 onMounted(async () => {
   await Promise.all([load(), fetchStatus()]);
@@ -32,17 +33,31 @@ onMounted(async () => {
 </script>
 
 <template>
-  <TopBar :view="view" @set="view = $event" @ai="showAi = true" @data="showData = true" @help="showHelp = true" />
-  <RunBar />
-  <main :class="{ wide }">
-    <HomeView v-if="view === 'home'" @practice="view = 'practice'" @cheat="view = 'cheat'" @coverage="view = 'coverage'" @traps="view = 'traps'" />
-    <PracticeView v-else-if="view === 'practice'" @home="view = 'home'" />
-    <CheatView v-else-if="view === 'cheat'" />
-    <TrapsView v-else-if="view === 'traps'" @practice="view = 'practice'" />
-    <CoverageView v-else-if="view === 'coverage'" />
-  </main>
-  <Toasts />
-  <AiModal v-if="showAi" @close="showAi = false" />
-  <DataModal v-if="showData" @close="showData = false" />
-  <HelpModal v-if="showHelp" @close="showHelp = false" />
+  <!-- Offline (frontend-only) build: training only, no navigation. -->
+  <template v-if="OFFLINE">
+    <TopBar minimal :view="view" @set="view = $event" @ai="showAi = true" @data="showData = true" @help="showHelp = true" />
+    <main class="offline-main">
+      <PracticeView @home="view = 'home'" />
+    </main>
+    <Toasts />
+    <DataModal v-if="showData" @close="showData = false" />
+    <HelpModal v-if="showHelp" @close="showHelp = false" />
+  </template>
+
+  <!-- Full app (server build). -->
+  <template v-else>
+    <TopBar :view="view" @set="view = $event" @ai="showAi = true" @data="showData = true" @help="showHelp = true" />
+    <RunBar />
+    <main :class="{ wide }">
+      <HomeView v-if="view === 'home'" @practice="view = 'practice'" @cheat="view = 'cheat'" @coverage="view = 'coverage'" @traps="view = 'traps'" />
+      <PracticeView v-else-if="view === 'practice'" @home="view = 'home'" />
+      <CheatView v-else-if="view === 'cheat'" />
+      <TrapsView v-else-if="view === 'traps'" @practice="view = 'practice'" />
+      <CoverageView v-else-if="view === 'coverage'" />
+    </main>
+    <Toasts />
+    <AiModal v-if="showAi" @close="showAi = false" />
+    <DataModal v-if="showData" @close="showData = false" />
+    <HelpModal v-if="showHelp" @close="showHelp = false" />
+  </template>
 </template>

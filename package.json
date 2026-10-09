@@ -10,6 +10,8 @@
     "build": "vite build",
     "build:offline": "node scripts/build-offline.mjs",
     "preview:offline": "vite preview --config vite.offline.config.js",
+    "snapshot": "node scripts/snapshot-progress.mjs",
+    "publish:offline": "node scripts/publish-offline.mjs",
     "verify": "node scripts/verify.mjs"
   },
   "devDependencies": {

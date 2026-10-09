@@ -469,3 +469,48 @@ pre.code { background: var(--code-bg); color: var(--code-text); border: 1px soli
   .data-row { flex-direction: column; align-items: stretch; gap: var(--sp-3); }
   .data-row .btn { width: 100%; }
 }
+
+/* ---------- offline training layout (minimal chrome) ---------- */
+.topbar.slim { padding: var(--sp-2) var(--sp-4); gap: var(--sp-3); }
+.topbar.slim .logo { width: 28px; height: 28px; font-size: 12px; border-radius: 8px; }
+.topbar.slim .brand h1 { font-size: 13px; }
+.topbar.slim .brand .sub { font-size: 10px; }
+.topbar.slim .goal { width: 30px; height: 30px; font-size: 10px; }
+main.offline-main { max-width: 720px; padding-top: var(--sp-4); }
+
+/* ---------- responsive + compact pass ---------- */
+@media (max-width: 560px) {
+  :root { --sp-5: 12px; --sp-6: 16px; --t-md: 14px; --t-lg: 16px; --t-xl: 19px; }
+  body { font-size: 13px; }
+  .card { padding: var(--sp-4); border-radius: var(--r); }
+  .prompt { margin-bottom: var(--sp-3); }
+  .code-shell { margin-bottom: var(--sp-3); }
+  .cm-host, .cm-editor-host { font-size: 12px; }
+  .hint, .explain, .anatomy-card { padding: 9px 11px; }
+  .session-head { padding: var(--sp-3) var(--sp-4); margin-bottom: var(--sp-3); }
+  .session-top { gap: var(--sp-2); margin-bottom: var(--sp-2); }
+  .session-controls { gap: var(--sp-2); margin-top: var(--sp-2); }
+  .session-stats .badge { padding: 0 7px; font-size: 10.5px; }
+  .pill { padding: 2px 9px; }
+  .outcome-btns { gap: 5px; margin-bottom: var(--sp-3); }
+  .outcome-btns button { min-height: 38px; padding: 5px 8px; font-size: var(--t-xs); }
+  .options { gap: 5px; margin-bottom: var(--sp-3); }
+  .option { padding: 9px 10px; }
+  .grades .btn.grade { flex: 1 1 30%; padding: 6px 8px; }
+  main, main.offline-main { padding-left: var(--sp-3); padding-right: var(--sp-3); }
+}
+
+/* Thumb-reachable primary actions on phones. */
+@media (max-width: 640px) {
+  .action-bar {
+    position: sticky; bottom: 0; z-index: 15;
+    margin: var(--sp-4) calc(var(--sp-5) * -1) calc(var(--sp-5) * -1);
+    padding: var(--sp-3) var(--sp-5);
+    background: color-mix(in srgb, var(--surface) 93%, transparent);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+    border-top: 1px solid var(--border);
+  }
+  .action-bar .btn { min-height: 42px; }
+  .action-bar .btn.primary { flex: 1; }
+  .action-bar .spacer { flex: 0; }
+}
