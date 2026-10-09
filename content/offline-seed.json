@@ -1,6 +1,6 @@
 {
   "schema": "ocplab.seed.v1",
-  "generatedAt": "2026-10-09T12:46:59.890Z",
+  "generatedAt": "2026-10-09T14:53:15.567Z",
   "entries": {
     "ocplab.progress.v1": {
       "items": {
@@ -89,12 +89,12 @@
           "firstSeen": 1791534440424
         },
         "ch1-gap-short-cast-integer": {
-          "box": 1,
-          "correct": 1,
+          "box": 2,
+          "correct": 2,
           "wrong": 1,
-          "seen": 2,
+          "seen": 3,
           "lastTeach": null,
-          "lastSeen": 1791535728128,
+          "lastSeen": 1791550476374,
           "lastResult": "correct",
           "firstSeen": 1791534482663
         },
@@ -595,13 +595,13 @@
           "firstSeen": 1791543544427
         },
         "ch2-gap-contains-matches": {
-          "box": 0,
-          "correct": 0,
+          "box": 1,
+          "correct": 1,
           "wrong": 1,
-          "seen": 1,
+          "seen": 2,
           "lastTeach": "bad",
-          "lastSeen": 1791543589885,
-          "lastResult": "wrong",
+          "lastSeen": 1791550513740,
+          "lastResult": "correct",
           "firstSeen": 1791543589885,
           "teachNote": "No, since it's a regex it can match only a part of it"
         },
@@ -617,13 +617,13 @@
           "teachNote": "lines() return a stream of the lines separated by line terminators"
         },
         "ch2-gap-indent": {
-          "box": 0,
-          "correct": 0,
+          "box": 1,
+          "correct": 1,
           "wrong": 1,
-          "seen": 1,
+          "seen": 2,
           "lastTeach": "ok",
-          "lastSeen": 1791543745727,
-          "lastResult": "wrong",
+          "lastSeen": 1791551367195,
+          "lastResult": "correct",
           "firstSeen": 1791543745727,
           "teachNote": "it adds n spaces and a line terminator"
         },
@@ -831,11 +831,391 @@
           "lastSeen": 1791545644655,
           "lastResult": "correct",
           "firstSeen": 1791545644655
+        },
+        "ch3-ternary-numeric-type": {
+          "box": 0,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791551415408,
+          "lastResult": "wrong",
+          "firstSeen": 1791551415408
+        },
+        "ch3-if-not-boolean": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791551438295,
+          "lastResult": "correct",
+          "firstSeen": 1791551438295
+        },
+        "ch3-switch-fallthrough": {
+          "box": 0,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791551477939,
+          "lastResult": "wrong",
+          "firstSeen": 1791551477939
+        },
+        "ch3-switch-arrow-nofallthrough": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791551503315,
+          "lastResult": "correct",
+          "firstSeen": 1791551503315
+        },
+        "ch3-switch-multiple-labels": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791551966154,
+          "lastResult": "correct",
+          "firstSeen": 1791551966154
+        },
+        "ch3-switch-expression": {
+          "box": 0,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552002981,
+          "lastResult": "wrong",
+          "firstSeen": 1791552002981
+        },
+        "ch3-switch-yield-block": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552032424,
+          "lastResult": "correct",
+          "firstSeen": 1791552032424
+        },
+        "ch3-switch-yield-required": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552055950,
+          "lastResult": "correct",
+          "firstSeen": 1791552055950
+        },
+        "ch3-switch-selector-long": {
+          "box": 0,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552096197,
+          "lastResult": "wrong",
+          "firstSeen": 1791552096197
+        },
+        "ch3-switch-arrow-single-statement": {
+          "box": 0,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552124054,
+          "lastResult": "correct",
+          "firstSeen": 1791552124054
+        },
+        "ch3-switch-case-null": {
+          "box": 1,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552147281,
+          "lastResult": "wrong",
+          "firstSeen": 1791552147281
+        },
+        "ch3-switch-arrow-empty": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552169008,
+          "lastResult": "correct",
+          "firstSeen": 1791552169008
+        },
+        "ch3-pattern-guard": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552204852,
+          "lastResult": "correct",
+          "firstSeen": 1791552204852
+        },
+        "ch3-pattern-dominance": {
+          "box": 0,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552242816,
+          "lastResult": "wrong",
+          "firstSeen": 1791552242816
+        },
+        "ch3-record-deconstruction": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552324169,
+          "lastResult": "correct",
+          "firstSeen": 1791552324169
+        },
+        "ch3-concept-switch-selector": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552337618,
+          "lastResult": "correct",
+          "firstSeen": 1791552337618
+        },
+        "ch3-fill-yield": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552635645,
+          "lastResult": "correct",
+          "firstSeen": 1791552635645
+        },
+        "extra-trace-switch": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552705114,
+          "lastResult": "correct",
+          "firstSeen": 1791552705114
+        },
+        "ch3-gap-switch-yield-in-statement": {
+          "box": 0,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552742173,
+          "lastResult": "correct",
+          "firstSeen": 1791552742173
+        },
+        "ch3-gap-yield-arrow-invalid": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552756329,
+          "lastResult": "correct",
+          "firstSeen": 1791552756329
+        },
+        "ch3-gap-case-not-constant": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552860053,
+          "lastResult": "correct",
+          "firstSeen": 1791552860053
+        },
+        "ch3-gap-switch-expression-not-exhaustive": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552873253,
+          "lastResult": "correct",
+          "firstSeen": 1791552873253
+        },
+        "ch3-gap-switch-statement-nonexhaustive": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552903674,
+          "lastResult": "correct",
+          "firstSeen": 1791552903674
+        },
+        "ch3-gap-case-null-default-combined": {
+          "box": 1,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552927156,
+          "lastResult": "correct",
+          "firstSeen": 1791552927156
+        },
+        "ch3-gap-long-boxing": {
+          "box": 0,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552958439,
+          "lastResult": "correct",
+          "firstSeen": 1791552958439
+        },
+        "ch3-do-while-once": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791552999902,
+          "lastResult": "correct",
+          "firstSeen": 1791552999902
+        },
+        "ch3-do-while-postdecrement": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791553067868,
+          "lastResult": "correct",
+          "firstSeen": 1791553067868
+        },
+        "ch3-labeled-continue": {
+          "box": 1,
+          "correct": 0,
+          "wrong": 1,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791553174755,
+          "lastResult": "wrong",
+          "firstSeen": 1791553174755
+        },
+        "ch3-labeled-break": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791553306854,
+          "lastResult": "correct",
+          "firstSeen": 1791553306854
+        },
+        "ch3-enhanced-for": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791553333310,
+          "lastResult": "correct",
+          "firstSeen": 1791553333310
+        },
+        "extra-trace-loop-sum": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791553410340,
+          "lastResult": "correct",
+          "firstSeen": 1791553410340
+        },
+        "ch3-gap-for-empty-init": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791553428380,
+          "lastResult": "correct",
+          "firstSeen": 1791553428380
+        },
+        "ch3-gap-for-empty-update": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791553462341,
+          "lastResult": "correct",
+          "firstSeen": 1791553462341
+        },
+        "ch3-gap-while": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791553485588,
+          "lastResult": "correct",
+          "firstSeen": 1791553485588
+        },
+        "ch3-gap-enhanced-for-collection": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791553525449,
+          "lastResult": "correct",
+          "firstSeen": 1791553525449
+        },
+        "ch3-gap-continue-unlabeled": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791553605218,
+          "lastResult": "correct",
+          "firstSeen": 1791553605218
+        },
+        "ch3-gap-break-unlabeled": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791553758726,
+          "lastResult": "correct",
+          "firstSeen": 1791553758726
+        },
+        "ch3-gap-concept-label-loop": {
+          "box": 2,
+          "correct": 1,
+          "wrong": 0,
+          "seen": 1,
+          "lastTeach": null,
+          "lastSeen": 1791553870545,
+          "lastResult": "correct",
+          "firstSeen": 1791553870545
         }
       },
-      "streak": 1,
-      "bestStreak": 8,
-      "seen": 88,
+      "streak": 10,
+      "bestStreak": 13,
+      "seen": 129,
       "ai": {},
       "aiUsage": {
         "calls": 40,
@@ -1371,13 +1751,260 @@
           "id": "ch3-ternary-nested",
           "ok": true,
           "hint": false
+        },
+        {
+          "t": 1791550476374,
+          "id": "ch1-gap-short-cast-integer",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791550513740,
+          "id": "ch2-gap-contains-matches",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791551367195,
+          "id": "ch2-gap-indent",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791551415409,
+          "id": "ch3-ternary-numeric-type",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791551438295,
+          "id": "ch3-if-not-boolean",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791551477939,
+          "id": "ch3-switch-fallthrough",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791551503315,
+          "id": "ch3-switch-arrow-nofallthrough",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791551966154,
+          "id": "ch3-switch-multiple-labels",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791552002981,
+          "id": "ch3-switch-expression",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791552032424,
+          "id": "ch3-switch-yield-block",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791552055950,
+          "id": "ch3-switch-yield-required",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791552096197,
+          "id": "ch3-switch-selector-long",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791552124054,
+          "id": "ch3-switch-arrow-single-statement",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791552147281,
+          "id": "ch3-switch-case-null",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791552169008,
+          "id": "ch3-switch-arrow-empty",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791552204853,
+          "id": "ch3-pattern-guard",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791552242816,
+          "id": "ch3-pattern-dominance",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791552324169,
+          "id": "ch3-record-deconstruction",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791552337618,
+          "id": "ch3-concept-switch-selector",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791552635645,
+          "id": "ch3-fill-yield",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791552705114,
+          "id": "extra-trace-switch",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791552742173,
+          "id": "ch3-gap-switch-yield-in-statement",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791552756329,
+          "id": "ch3-gap-yield-arrow-invalid",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791552860053,
+          "id": "ch3-gap-case-not-constant",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791552873253,
+          "id": "ch3-gap-switch-expression-not-exhaustive",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791552903674,
+          "id": "ch3-gap-switch-statement-nonexhaustive",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791552927157,
+          "id": "ch3-gap-case-null-default-combined",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791552958439,
+          "id": "ch3-gap-long-boxing",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791552999902,
+          "id": "ch3-do-while-once",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791553067868,
+          "id": "ch3-do-while-postdecrement",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791553174755,
+          "id": "ch3-labeled-continue",
+          "ok": false,
+          "hint": false
+        },
+        {
+          "t": 1791553306854,
+          "id": "ch3-labeled-break",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791553333310,
+          "id": "ch3-enhanced-for",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791553410340,
+          "id": "extra-trace-loop-sum",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791553428380,
+          "id": "ch3-gap-for-empty-init",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791553462341,
+          "id": "ch3-gap-for-empty-update",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791553485588,
+          "id": "ch3-gap-while",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791553525449,
+          "id": "ch3-gap-enhanced-for-collection",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791553605218,
+          "id": "ch3-gap-continue-unlabeled",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791553758726,
+          "id": "ch3-gap-break-unlabeled",
+          "ok": true,
+          "hint": false
+        },
+        {
+          "t": 1791553870545,
+          "id": "ch3-gap-concept-label-loop",
+          "ok": true,
+          "hint": false
         }
       ],
       "taxonomy": {
         "Conversion & boxing": 3,
-        "Operators & precedence": 3,
-        "Other": 1,
-        "Strings": 14
+        "Operators & precedence": 4,
+        "Other": 2,
+        "Strings": 14,
+        "Switch semantics": 5
       },
       "settings": {
         "goal": 20
@@ -1401,6 +2028,6 @@
       },
       "reports": []
     },
-    "ocplab.theme": "dark"
+    "ocplab.theme": "light"
   }
 }
