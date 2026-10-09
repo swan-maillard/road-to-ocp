@@ -10,6 +10,9 @@ const interleave = ref(false);
 const session = ref([]);
 const cursor = ref(0);
 const revealed = ref(false);
+// Ids classified as reviews when the session was built. Frozen so that
+// answering a new card doesn't reclassify it as a review mid-session.
+const reviewIds = ref(new Set());
 
 const goal = computed(() => Math.max(1, state.settings.goal || 20));
 const reviewsDue = computed(() => allItems.value.filter((d) => isDue(d.id)).length);
@@ -19,10 +22,11 @@ const newAllowance = computed(() => Math.min(goal.value, newAvailable.value));
 const current = computed(() => session.value[cursor.value] || null);
 
 const isNewItem = (id) => { const r = state.items[id]; return !r || !r.seen; };
-const newTotal = computed(() => session.value.filter((d) => isNewItem(d.id)).length);
+const isSessionNew = (d) => !reviewIds.value.has(d.id);
+const newTotal = computed(() => session.value.filter(isSessionNew).length);
 const reviewTotal = computed(() => session.value.length - newTotal.value);
 const done = computed(() => Math.min(cursor.value, session.value.length));
-const doneNew = computed(() => session.value.slice(0, cursor.value).filter((d) => isNewItem(d.id)).length);
+const doneNew = computed(() => session.value.slice(0, cursor.value).filter(isSessionNew).length);
 const doneReview = computed(() => done.value - doneNew.value);
 
 // New cards are introduced in chapter order (then section order).
@@ -64,6 +68,7 @@ function buildSession() {
   }
   const ordered = [...leitnerOrder(reviews), ...chapterOrder(fresh)];
   session.value = interleave.value ? interleaveList(ordered) : ordered;
+  reviewIds.value = new Set(reviews.map((d) => d.id));
   cursor.value = 0;
   revealed.value = false;
 }
@@ -73,6 +78,7 @@ function newCardsSession(n) {
   const count = n || goal.value;
   const fresh = chapterOrder(allItems.value.filter((d) => isNew(d.id))).slice(0, count);
   session.value = interleave.value ? interleaveList(fresh) : fresh;
+  reviewIds.value = new Set();
   cursor.value = 0;
   revealed.value = false;
 }

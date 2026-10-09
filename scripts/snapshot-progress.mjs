@@ -44,6 +44,15 @@ export function snapshotProgress() {
     return empty;
   }
 
+  // Keep the file stable (no churn) when the DB content is unchanged.
+  try {
+    const prev = JSON.parse(fs.readFileSync(OUT_FILE, 'utf8'));
+    if (JSON.stringify(prev.entries) === JSON.stringify(entries)) {
+      console.log('[seed] DB unchanged — seed file left as-is');
+      return prev;
+    }
+  } catch {}
+
   const seed = { schema: 'ocplab.seed.v1', generatedAt: new Date().toISOString(), entries };
   fs.mkdirSync(path.dirname(OUT_FILE), { recursive: true });
   fs.writeFileSync(OUT_FILE, JSON.stringify(seed, null, 2));
