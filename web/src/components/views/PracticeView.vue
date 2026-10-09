@@ -9,7 +9,7 @@ import { useProgress } from '../../composables/useProgress';
 import { OFFLINE } from '../../lib/mode.js';
 
 const emit = defineEmits(['home']);
-const { scope, interleave, session, cursor, current, buildSession, reshuffle, setScope, newCardsSession, newTotal, reviewTotal, done } = usePractice();
+const { scope, newOnly, session, cursor, current, buildSession, shuffle, setScope, setNewOnly, newCardsSession, newTotal, reviewTotal, done } = usePractice();
 const { chapters, allItems } = useContent();
 const { state, todayAnswered, isNew } = useProgress();
 const host = ref(null);
@@ -24,7 +24,7 @@ const scopeOptions = computed(() => {
 const pct = computed(() => (session.value.length ? Math.min(100, (cursor.value / session.value.length) * 100) : 0));
 
 function onScope(e) { setScope(e.target.value); }
-function onInterleave(e) { interleave.value = e.target.checked; buildSession(); }
+function onNewOnly(e) { setNewOnly(e.target.checked); }
 function onKey(e) {
   if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') { e.preventDefault(); if (host.value && host.value.run) host.value.run(); }
 }
@@ -52,9 +52,9 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKey));
             <option v-for="o in scopeOptions" :key="o.v" :value="o.v">{{ o.label }}</option>
           </select>
         </label>
-        <label class="toggle"><input type="checkbox" :checked="interleave" @change="onInterleave" /> Interleave</label>
+        <label class="toggle"><input type="checkbox" :checked="newOnly" @change="onNewOnly" /> New only</label>
         <div class="spacer"></div>
-        <button class="btn ghost sm" @click="reshuffle">Reshuffle</button>
+        <button class="btn ghost sm" @click="shuffle">Shuffle</button>
       </div>
     </div>
 
@@ -66,7 +66,7 @@ onBeforeUnmount(() => document.removeEventListener('keydown', onKey));
         <div class="muted" style="margin-top:6px">Reviews are done for today — a new session brings only new cards.</div>
         <div class="row-actions" style="justify-content:center">
           <button v-if="newRemaining" class="btn primary" @click="newCardsSession()">Start {{ Math.min(goal, newRemaining) }} new cards</button>
-          <button class="btn ghost" @click="reshuffle">Reshuffle</button>
+          <button class="btn ghost" @click="buildSession">New session</button>
           <button v-if="!OFFLINE" class="btn ghost" @click="emit('home')">Home</button>
         </div>
       </div>

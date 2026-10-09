@@ -6,7 +6,7 @@ const { allItems } = useContent();
 const { isDue, isNew, state } = useProgress();
 
 const scope = ref('due');
-const interleave = ref(false);
+const newOnly = ref(false);
 const session = ref([]);
 const cursor = ref(0);
 const revealed = ref(false);
@@ -33,21 +33,19 @@ const doneReview = computed(() => done.value - doneNew.value);
 function chapterOrder(list) {
   return list.slice().sort((a, b) => (a.chapter - b.chapter) || String(a.section).localeCompare(String(b.section)));
 }
-// Reviews: lowest box (most struggled) first, then most misses, with a random
-// tiebreaker so the order differs each session.
-function leitnerOrder(list) {
-  return list
-    .map((d) => ({ d, r: state.items[d.id] || {}, k: Math.random() }))
-    .sort((a, b) => (a.r.box || 0) - (b.r.box || 0) || (b.r.wrong || 0) - (a.r.wrong || 0) || a.k - b.k)
-    .map((x) => x.d);
+function shuffleArray(list) {
+  const a = list.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
-// Interleave topics by chapter, preserving the order inside each chapter.
-function interleaveList(list) {
-  const buckets = new Map();
-  for (const d of list) { if (!buckets.has(d.chapter)) buckets.set(d.chapter, []); buckets.get(d.chapter).push(d); }
-  const keys = [...buckets.keys()].sort((a, b) => a - b);
-  const out = []; let more = true;
-  while (more) { more = false; for (const k of keys) { const arr = buckets.get(k); if (arr.length) { out.push(arr.shift()); more = true; } } }
+// New cards keep their chapter order; reviews are shuffled into them at random
+// positions.
+function mixReviews(fresh, reviews) {
+  const out = fresh.slice();
+  for (const d of shuffleArray(reviews)) out.splice(Math.floor(Math.random() * (out.length + 1)), 0, d);
   return out;
 }
 
@@ -66,26 +64,32 @@ function buildSession() {
     reviews = allItems.value.filter((d) => isDue(d.id));
     fresh = chapterOrder(allItems.value.filter((d) => isNew(d.id))).slice(0, goal.value);
   }
-  const ordered = [...leitnerOrder(reviews), ...chapterOrder(fresh)];
-  session.value = interleave.value ? interleaveList(ordered) : ordered;
+  if (newOnly.value) reviews = [];
+  session.value = mixReviews(chapterOrder(fresh), reviews);
   reviewIds.value = new Set(reviews.map((d) => d.id));
   cursor.value = 0;
   revealed.value = false;
 }
 function next() { cursor.value++; revealed.value = false; }
+// Shuffle the cards still ahead in the current deck (including the one on
+// screen), leaving already-answered cards in place.
+function shuffle() {
+  session.value = [...session.value.slice(0, cursor.value), ...shuffleArray(session.value.slice(cursor.value))];
+  revealed.value = false;
+}
 // Start a fresh session of up to `n` unseen (new) cards only — no reviews.
 function newCardsSession(n) {
   const count = n || goal.value;
   const fresh = chapterOrder(allItems.value.filter((d) => isNew(d.id))).slice(0, count);
-  session.value = interleave.value ? interleaveList(fresh) : fresh;
+  session.value = fresh;
   reviewIds.value = new Set();
   cursor.value = 0;
   revealed.value = false;
 }
-function reshuffle() { buildSession(); }
 function setScope(v) { scope.value = v; buildSession(); }
+function setNewOnly(v) { newOnly.value = v; buildSession(); }
 function trainTrap(tag) { scope.value = 'trap:' + tag; buildSession(); }
 
 export function usePractice() {
-  return { scope, interleave, session, cursor, current, revealed, buildSession, next, newCardsSession, reshuffle, setScope, trainTrap, allItems, isNewItem, newTotal, reviewTotal, done, doneNew, doneReview, goal, reviewsDue, newAllowance };
+  return { scope, newOnly, session, cursor, current, revealed, buildSession, next, shuffle, newCardsSession, setScope, setNewOnly, trainTrap, allItems, isNewItem, newTotal, reviewTotal, done, doneNew, doneReview, goal, reviewsDue, newAllowance };
 }

@@ -2,10 +2,50 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>Road to OCP · Java 25 (1Z0-831)</title>
+
+  <link rel="manifest" href="%BASE_URL%manifest.webmanifest" />
+  <meta name="theme-color" content="#0a1424" />
+  <link rel="icon" href="%BASE_URL%icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="%BASE_URL%icons/apple-touch-icon.png" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Road to OCP" />
+
+  <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" href="%BASE_URL%splash/iphone-750x1334.png" />
+  <link rel="apple-touch-startup-image" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" href="%BASE_URL%splash/iphone-828x1792.png" />
+  <link rel="apple-touch-startup-image" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" href="%BASE_URL%splash/iphone-1125x2436.png" />
+  <link rel="apple-touch-startup-image" media="(device-width: 390px) and (device-height: 844px) and (-webkit-device-pixel-ratio: 3)" href="%BASE_URL%splash/iphone-1170x2532.png" />
+  <link rel="apple-touch-startup-image" media="(device-width: 393px) and (device-height: 852px) and (-webkit-device-pixel-ratio: 3)" href="%BASE_URL%splash/iphone-1179x2556.png" />
+  <link rel="apple-touch-startup-image" media="(device-width: 428px) and (device-height: 926px) and (-webkit-device-pixel-ratio: 3)" href="%BASE_URL%splash/iphone-1284x2778.png" />
+  <link rel="apple-touch-startup-image" media="(device-width: 430px) and (device-height: 932px) and (-webkit-device-pixel-ratio: 3)" href="%BASE_URL%splash/iphone-1290x2796.png" />
+
+  <style>
+    html, body { background: #0a1424; margin: 0; }
+    #boot-splash {
+      position: fixed; inset: 0; z-index: 9999;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 18px;
+      background: radial-gradient(circle at 50% 38%, #16233a, #0a1424 70%);
+      color: #fff; transition: opacity .35s ease;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    #boot-splash.hide { opacity: 0; pointer-events: none; }
+    #boot-splash .boot-logo {
+      width: 96px; height: 96px; border-radius: 26px; display: grid; place-items: center;
+      font-size: 44px; font-weight: 800; line-height: 1; color: #fff;
+      background: linear-gradient(135deg, #f89820, #ea1b22);
+      box-shadow: 0 12px 40px rgba(248, 152, 32, .35);
+    }
+    #boot-splash .boot-name { font-size: 18px; font-weight: 700; letter-spacing: .02em; color: rgba(255, 255, 255, .92); }
+  </style>
 </head>
 <body>
+  <div id="boot-splash" aria-hidden="true">
+    <div class="boot-logo">25</div>
+    <div class="boot-name">Road to OCP</div>
+  </div>
   <div id="app"></div>
   <script type="module" src="/src/main.js"></script>
 </body>
