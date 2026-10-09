@@ -13,15 +13,13 @@ import GradeInput from './GradeInput.vue';
 import AiPanel from '../ai/AiPanel.vue';
 import { useContent } from '../../composables/useContent';
 import { useProgress, BOX_NAMES, MASTERED_BOX } from '../../composables/useProgress';
-import { useRun } from '../../composables/useRun';
 import { usePractice } from '../../composables/usePractice';
-import { norm, arraysEqual, outcomeOf, exceptionName, OUTCOME_LABEL } from '../../lib/util';
+import { norm, arraysEqual, OUTCOME_LABEL } from '../../lib/util';
 import { OFFLINE } from '../../lib/mode.js';
 
 const props = defineProps({ drill: { type: Object, required: true } });
 const { hints: hintsFor } = useContent();
 const { state, recordResult } = useProgress();
-const { runJava } = useRun();
 const { next } = usePractice();
 
 const revealed = ref(false);
@@ -60,7 +58,7 @@ const hintList = computed(() => {
 function nextHint() { if (hintsShown.value < hintList.value.length) hintsShown.value++; }
 
 const needsText = computed(() => props.drill.outcome === 'OUTPUT');
-const revealLabel = computed(() => (OFFLINE ? 'Reveal answer' : 'Reveal & run'));
+const revealLabel = computed(() => 'Reveal answer');
 const box = computed(() => { const r = state.items[props.drill.id]; return r && r.seen ? r.box : null; });
 
 async function reveal(forceWrong = false) {
@@ -78,8 +76,9 @@ async function reveal(forceWrong = false) {
     actual.value = flat.join(' | '); revealed.value = true;
   } else if (d.kind === 'bug') {
     mine.value = 'line ' + (bugLine.value || '?'); actual.value = 'line ' + d.answerLine; correct.value = bugLine.value === d.answerLine; revealed.value = true;
-  } else if (OFFLINE) {
-    // No JVM offline: grade against the answer captured when the drill was authored.
+  } else {
+    // Grade against the answer captured when the drill was authored and
+    // verified on the JVM (scripts/verify.mjs) — no JVM round-trip needed.
     const a = d.outcome || 'OUTPUT';
     actualOutcome.value = a;
     rawOutput.value = '';
@@ -91,23 +90,6 @@ async function reveal(forceWrong = false) {
     mine.value = (outcome.value ? OUTCOME_LABEL[outcome.value] : '(no outcome)') + (text.value ? '\n' + t : '');
     actual.value = OUTCOME_LABEL[a] + (a === 'OUTPUT' ? '\n' + norm(d.answer) : (a === 'RUNTIME_ERROR' ? '\n' + (d.answer || '') : ''));
     revealed.value = true;
-  } else {
-    busy.value = true;
-    try {
-      const res = await runJava(d.code);
-      const a = outcomeOf(res);
-      actualOutcome.value = a;
-      rawOutput.value = res.compiled ? (res.stdout || '(no output)') : res.stderr;
-      const exc = a === 'RUNTIME_ERROR' ? exceptionName(res.stderr) : '';
-      const t = norm(text.value);
-      let textOk = true;
-      if (a === 'OUTPUT') textOk = t !== '' && t === norm(res.stdout);
-      else if (t) { if (a === 'RUNTIME_ERROR') textOk = t.toLowerCase().includes(exc.toLowerCase()); else textOk = false; }
-      correct.value = (outcome.value || 'OUTPUT') === a && textOk;
-      mine.value = (outcome.value ? OUTCOME_LABEL[outcome.value] : '(no outcome)') + (text.value ? '\n' + t : '');
-      actual.value = OUTCOME_LABEL[a] + (a === 'OUTPUT' ? '\n' + norm(res.stdout) : (a === 'RUNTIME_ERROR' ? '\n' + exc : ''));
-      revealed.value = true;
-    } finally { busy.value = false; }
   }
   if (forceWrong) { correct.value = false; mine.value = "(I don't know)"; }
 }
@@ -155,7 +137,6 @@ defineExpose({ run: reveal });
       <button class="btn ghost" :disabled="revealed || hintsShown >= hintList.length" @click="nextHint">Hint</button>
       <button class="btn ghost" :disabled="revealed || busy" @click="dontKnow">I don't know</button>
     </div>
-    <div v-if="busy" class="spin" style="margin-top:12px">Compiling and running on the JVM…</div>
 
     <RevealPanel v-if="revealed" :drill="drill" :correct="correct" :mine="mine" :actual="actual" :raw-output="rawOutput" />
     <TeachBack v-if="revealed && !OFFLINE" :drill="drill" />
