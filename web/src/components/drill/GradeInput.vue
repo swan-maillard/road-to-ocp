@@ -12,12 +12,12 @@ const emit = defineEmits(['grade']);
 
 const maxBox = BOX_NAMES.length - 1;
 const projected = (delta) => Math.max(0, Math.min(maxBox, props.currentBox + delta));
-const current = computed(() => 'Box ' + props.currentBox + ' · ' + BOX_NAMES[props.currentBox]);
+const current = computed(() => BOX_NAMES[props.currentBox]);
 </script>
 
 <template>
   <div class="self-grade">
-    <div class="sg-label">Grade yourself <span class="muted">— now {{ current }}; this moves the card and sets its next review</span></div>
+    <div class="sg-label">Grade yourself <span class="muted">— now {{ current }}</span></div>
     <div class="grades">
       <button
         v-for="g in GRADES" :key="g.key"

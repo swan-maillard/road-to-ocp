@@ -52,7 +52,7 @@ function baseExtensions({ editable, onRun, theme }) {
 }
 
 export function createReadOnly({ parent, doc, theme }) {
-  return new EditorView({ doc, extensions: [...baseExtensions({ editable: false, theme }), EditorView.lineWrapping], parent });
+  return new EditorView({ doc, extensions: baseExtensions({ editable: false, theme }), parent });
 }
 
 export function createEditable({ parent, doc, theme, onRun, onChange }) {
